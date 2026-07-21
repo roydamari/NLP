@@ -1,0 +1,9 @@
+# Slurm/Linux requirements (ensure CUDA builds are used where appropriate)
+transformers>=4.40.0
+peft>=0.10.0
+trl>=0.8.6
+datasets>=2.19.0
+torch>=2.2.0
+pyyaml>=6.0
+accelerate>=0.29.0
+bitsandbytes>=0.43.1
