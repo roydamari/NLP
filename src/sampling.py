@@ -14,21 +14,24 @@ def main():
     config = load_config()
     set_seed(config["seed"])
     
-    out_dir = "data/labeled/generations_raw"
-    os.makedirs(out_dir, exist_ok=True)
+    os.makedirs("data/labeled", exist_ok=True)
     
-    # Load dataset
-    input_file = "data/processed/triviaqa_finetune_split.jsonl"
+    out_file = "data/labeled/generations.jsonl"
+    input_file = "data/processed/triviaqa_finetune.jsonl"
+    
     with open(input_file, "r") as f:
         dataset = [json.loads(line) for line in f]
     
-    # Resume logic: skip already generated questions
-    existing_files = set(os.listdir(out_dir))
-    to_process = []
-    for item in dataset:
-        if f"{item['id']}.json" not in existing_files:
-            to_process.append(item)
-            
+    # Resume logic: load already-completed question IDs from the JSONL
+    done_ids = set()
+    if os.path.exists(out_file):
+        with open(out_file, "r") as f:
+            for line in f:
+                item = json.loads(line)
+                done_ids.add(item["question_id"])
+
+    to_process = [item for item in dataset if item["id"] not in done_ids]
+    
     if not to_process:
         print("All samples already generated! Exiting.")
         return
@@ -47,63 +50,55 @@ def main():
         device_map="auto"
     )
     
-    batch_size = 4  # Adjust based on VRAM
+    batch_size = 4
     n_samples = config["n_samples"]
     temp = config["sampling_temperature"]
     
-    # Simple batched generation loop
-    for i in tqdm(range(0, len(to_process), batch_size)):
-        batch = to_process[i:i+batch_size]
-        input_ids_list = []
-        for item in batch:
-            msgs = [
-                {"role": "user", "content": f"{item['question']}\n\nAnswer the question directly. Respond in exactly this format, with nothing after it:\nAnswer: [your answer]"}
-            ]
-            encoded = tokenizer.apply_chat_template(msgs, tokenize=True, add_generation_prompt=True, return_dict=False)
-            if hasattr(encoded, "keys") and "input_ids" in encoded:
-                input_ids_list.append(encoded["input_ids"])
-            elif hasattr(encoded, "input_ids"):
-                input_ids_list.append(encoded.input_ids)
-            else:
-                input_ids_list.append(encoded)
-        
-        # We want n_samples per prompt. Easiest way in HF is num_return_sequences
-        inputs = tokenizer.pad({"input_ids": input_ids_list}, return_tensors="pt", padding=True).to(model.device)
-        
-        # Attention mask needs to be explicitly created if tokenizer.pad doesn't return it when passing just input_ids.
-        # Actually tokenizer.pad does return attention_mask!
-        
-        with torch.no_grad():
-            outputs = model.generate(
-                **inputs,
-                max_new_tokens=50,
-                do_sample=True,
-                temperature=temp,
-                num_return_sequences=n_samples,
-                pad_token_id=tokenizer.pad_token_id
-            )
+    # Open in append mode so crashed runs can resume safely
+    with open(out_file, "a") as out_f:
+        for i in tqdm(range(0, len(to_process), batch_size)):
+            batch = to_process[i:i+batch_size]
+            input_ids_list = []
+            for item in batch:
+                msgs = [
+                    {"role": "user", "content": f"{item['question']}\n\nAnswer the question directly. Respond in exactly this format, with nothing after it:\nAnswer: [your answer]"}
+                ]
+                encoded = tokenizer.apply_chat_template(msgs, tokenize=True, add_generation_prompt=True, return_dict=False)
+                if hasattr(encoded, "keys") and "input_ids" in encoded:
+                    input_ids_list.append(encoded["input_ids"])
+                elif hasattr(encoded, "input_ids"):
+                    input_ids_list.append(encoded.input_ids)
+                else:
+                    input_ids_list.append(encoded)
             
-        # Strip input tokens from outputs before decoding
-        input_len = inputs["input_ids"].shape[1]
-        generated_tokens = outputs[:, input_len:]
-        decoded = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
-        
-        # Output is shape (batch_size * n_samples).
-        for b_idx, item in enumerate(batch):
-            start_idx = b_idx * n_samples
-            end_idx = start_idx + n_samples
-            gens = decoded[start_idx:end_idx]
+            inputs = tokenizer.pad({"input_ids": input_ids_list}, return_tensors="pt", padding=True).to(model.device)
             
-            clean_gens = [g.strip() for g in gens]
-                    
-            # Incremental save
-            out_path = os.path.join(out_dir, f"{item['id']}.json")
-            with open(out_path, "w") as f:
-                json.dump({
+            with torch.no_grad():
+                outputs = model.generate(
+                    **inputs,
+                    max_new_tokens=50,
+                    do_sample=True,
+                    temperature=temp,
+                    num_return_sequences=n_samples,
+                    pad_token_id=tokenizer.pad_token_id
+                )
+                
+            input_len = inputs["input_ids"].shape[1]
+            generated_tokens = outputs[:, input_len:]
+            decoded = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
+            
+            for b_idx, item in enumerate(batch):
+                start_idx = b_idx * n_samples
+                end_idx = start_idx + n_samples
+                gens = [g.strip() for g in decoded[start_idx:end_idx]]
+                
+                # Write one line per question immediately (crash-safe)
+                out_f.write(json.dumps({
                     "question_id": item["id"],
                     "question": item["question"],
-                    "generations": clean_gens
-                }, f)
+                    "generations": gens
+                }) + "\n")
+                out_f.flush()
 
 if __name__ == "__main__":
     main()

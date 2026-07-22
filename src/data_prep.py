@@ -11,7 +11,7 @@ def load_config():
 def ensure_dirs():
     os.makedirs("data/raw", exist_ok=True)
     os.makedirs("data/processed", exist_ok=True)
-    os.makedirs("data/labeled/generations_raw", exist_ok=True)
+    os.makedirs("data/labeled", exist_ok=True)
 
 def main():
     config = load_config()
@@ -51,7 +51,7 @@ def main():
 
     # Save processed data
     print("Saving processed datasets...")
-    with open("data/processed/triviaqa_finetune_split.jsonl", "w") as f:
+    with open("data/processed/triviaqa_finetune.jsonl", "w") as f:
         for item in trivia_train:
             aliases = item["answer"]["aliases"]
             f.write(json.dumps({

@@ -5,10 +5,10 @@ model_name: "meta-llama/Llama-3.2-3B-Instruct"
 n_samples: 10
 sampling_temperature: 1.0
 seed: 42
-train_subset_size: 1000  # 1000 = validation scale; increase later if time/compute permits once pipeline is confirmed working.
-test_subset_size: 1000   # Scaled proportionally for evaluation
-ood_subset_size: 1000    # Scaled proportionally for OOD evaluation
+train_subset_size: 10  # 1000 = validation scale; increase later if time/compute permits once pipeline is confirmed working.
+test_subset_size: 5   # Scaled proportionally for evaluation
+ood_subset_size: 5    # Scaled proportionally for OOD evaluation
 lora_r: 16
 lora_alpha: 32
-learning_rate: 2.0e-5
-num_epochs: 3
+learning_rate: 3.0e-4
+num_epochs: 20

@@ -25,7 +25,7 @@ def run_evaluation(model, tokenizer, input_file, output_file, is_baseline=False)
     with open(output_file, "w") as f_out:
         for i in tqdm(range(0, len(dataset), batch_size)):
             batch = dataset[i:i+batch_size]
-            prompts = []
+            input_ids_list = []
             
             for item in batch:
                 if is_baseline:
@@ -33,10 +33,15 @@ def run_evaluation(model, tokenizer, input_file, output_file, is_baseline=False)
                 else:
                     msgs = [{"role": "user", "content": item['question']}]
                 
-                prompt = tokenizer.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
-                prompts.append(prompt)
+                encoded = tokenizer.apply_chat_template(msgs, tokenize=True, add_generation_prompt=True, return_dict=False)
+                if hasattr(encoded, "keys") and "input_ids" in encoded:
+                    input_ids_list.append(encoded["input_ids"])
+                elif hasattr(encoded, "input_ids"):
+                    input_ids_list.append(encoded.input_ids)
+                else:
+                    input_ids_list.append(encoded)
                 
-            inputs = tokenizer(prompts, return_tensors="pt", padding=True).to(model.device)
+            inputs = tokenizer.pad({"input_ids": input_ids_list}, return_tensors="pt", padding=True).to(model.device)
             
             with torch.no_grad():
                 outputs = model.generate(
@@ -46,10 +51,13 @@ def run_evaluation(model, tokenizer, input_file, output_file, is_baseline=False)
                     pad_token_id=tokenizer.pad_token_id
                 )
                 
-            decoded = tokenizer.batch_decode(outputs, skip_special_tokens=True)
+            # Strip input tokens from outputs before decoding
+            input_len = inputs["input_ids"].shape[1]
+            generated_tokens = outputs[:, input_len:]
+            decoded = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
             
             for b_idx, item in enumerate(batch):
-                gen = decoded[b_idx]
+                gen = decoded[b_idx].strip()
                 f_out.write(json.dumps({
                     "question_id": item["id"],
                     "question": item["question"],

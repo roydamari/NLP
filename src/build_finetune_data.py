@@ -58,9 +58,11 @@ def main():
                 
                 # Instruction format (this can be formatted later using a ChatTemplate in train.py)
                 # But here we provide the raw user/assistant turns
+                # Strip the "Answer: " prefix if it exists to avoid double prepending
+                clean_ans = chosen_answer.replace("Answer: ", "").replace("Answer:", "").strip()
                 messages = [
                     {"role": "user", "content": item["question"]},
-                    {"role": "assistant", "content": f"Answer: {chosen_answer}. My confidence is {k} out of 10."}
+                    {"role": "assistant", "content": f"{clean_ans}. My confidence is {k} out of 10."}
                 ]
                 
                 f.write(json.dumps({"messages": messages}) + "\n")
