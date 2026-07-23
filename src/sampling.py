@@ -61,7 +61,7 @@ def main():
             input_ids_list = []
             for item in batch:
                 msgs = [
-                    {"role": "user", "content": f"{item['question']}\n\nAnswer the question directly. Respond in exactly this format, with nothing after it:\nAnswer: [your answer]"}
+                    {"role": "user", "content": f"{item['question']}\n\nAnswer the question in one short line. Start your response with \"Answer:\" followed by only your answer. Do not repeat these instructions."}
                 ]
                 encoded = tokenizer.apply_chat_template(msgs, tokenize=True, add_generation_prompt=True, return_dict=False)
                 if hasattr(encoded, "keys") and "input_ids" in encoded:

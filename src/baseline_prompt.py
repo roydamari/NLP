@@ -46,7 +46,7 @@ def main():
                 for item in batch:
                     # Construct chat message
                     msgs = [
-                        {"role": "user", "content": f"{item['question']}\n\nAnswer the question directly. Respond in exactly this format, with nothing after it:\nAnswer: [your answer]\n\nFinally, provide your answer followed by 'My confidence is X out of 10' where X is your confidence."}
+                        {"role": "user", "content": f"{item['question']}\n\nAnswer the question in one short line. Start your response with \"Answer:\" followed by only your answer. Do not repeat these instructions.\n\nFinally, provide your answer followed by 'My confidence is X out of 10' where X is your confidence."}
                     ]
                     encoded = tokenizer.apply_chat_template(msgs, tokenize=True, add_generation_prompt=True, return_dict=False)
                     if hasattr(encoded, "keys") and "input_ids" in encoded:

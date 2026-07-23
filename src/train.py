@@ -14,6 +14,7 @@ def load_config():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--sanity_check", action="store_true", help="Run 50-example overfit test")
+    parser.add_argument("--num_epochs", type=int, default=None, help="Override config num_epochs (useful for sanity_check sweeps)")
     args = parser.parse_args()
     
     config = load_config()
@@ -38,11 +39,13 @@ def main():
         dataset["train"] = dataset["train"].select(range(min(50, len(dataset["train"]))))
         if has_val:
             dataset["val"] = dataset["val"].select(range(min(10, len(dataset["val"]))))
-        epochs = 10 # More epochs to ensure overfitting
-        output_dir = "outputs/checkpoints/sanity_check"
+        epochs = args.num_epochs if args.num_epochs is not None else 10
+        output_dir = f"outputs/checkpoints/sanity_check_e{epochs}"
+        logging_steps = 1  # Per-step logging for loss curve analysis
     else:
-        epochs = config["num_epochs"]
+        epochs = args.num_epochs if args.num_epochs is not None else config["num_epochs"]
         output_dir = "outputs/checkpoints/run_full"
+        logging_steps = 10
         
     def formatting_prompts_func(example):
         # example["messages"] is a list of dicts: [{'role': 'user', 'content': '...'}, {'role': 'assistant', 'content': '...'}]
@@ -94,10 +97,17 @@ def main():
     dataset = dataset.map(tokenize_function, batched=True)
     dataset = dataset.remove_columns(["messages"])
     
+    if torch.cuda.is_available():
+        device_map = {"": torch.cuda.current_device()}
+    elif torch.backends.mps.is_available():
+        device_map = {"": "mps"}
+    else:
+        device_map = "auto"
+        
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
         torch_dtype=torch.bfloat16,
-        device_map="auto"
+        device_map=device_map
     )
     
     lora_config = LoraConfig(
@@ -113,7 +123,8 @@ def main():
         per_device_train_batch_size=4,
         gradient_accumulation_steps=4,
         learning_rate=float(config["learning_rate"]),
-        logging_steps=10,
+        logging_steps=logging_steps,
+        logging_strategy="epoch" if not args.sanity_check else "steps",
         num_train_epochs=epochs,
         save_strategy="epoch",
         eval_strategy="epoch" if has_val else "no",
