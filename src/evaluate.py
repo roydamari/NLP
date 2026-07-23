@@ -13,7 +13,7 @@ def load_config():
     with open("configs/base.yaml", "r") as f:
         return yaml.safe_load(f)
 
-def run_evaluation(model, tokenizer, input_file, output_file, is_baseline=False):
+def run_evaluation(model, tokenizer, input_file, output_file):
     """
     Run evaluation on a dataset, saving raw generations.
     """
@@ -28,10 +28,7 @@ def run_evaluation(model, tokenizer, input_file, output_file, is_baseline=False)
             input_ids_list = []
             
             for item in batch:
-                if is_baseline:
-                    msgs = [{"role": "user", "content": f"{item['question']} Please provide your answer followed by 'My confidence is X out of 10' where X is your confidence."}]
-                else:
-                    msgs = [{"role": "user", "content": item['question']}]
+                msgs = [{"role": "user", "content": item['question']}]
                 
                 encoded = tokenizer.apply_chat_template(msgs, tokenize=True, add_generation_prompt=True, return_dict=False)
                 if hasattr(encoded, "keys") and "input_ids" in encoded:
@@ -156,13 +153,13 @@ def main():
         # In-dist Eval
         print("Evaluating fine-tuned model on In-Distribution (TriviaQA)...")
         ft_indist_raw = "outputs/eval_results/finetuned_indist.jsonl"
-        run_evaluation(model, tokenizer, "data/processed/triviaqa_test.jsonl", ft_indist_raw, is_baseline=False)
+        run_evaluation(model, tokenizer, "data/processed/triviaqa_test.jsonl", ft_indist_raw)
         results_indist["finetuned"] = process_results(ft_indist_raw, target_format="finetuned")
         
         # OOD Eval
         print("Evaluating fine-tuned model on OOD (Natural Questions)...")
         ft_ood_raw = "outputs/eval_results/finetuned_ood.jsonl"
-        run_evaluation(model, tokenizer, "data/processed/ood_test.jsonl", ft_ood_raw, is_baseline=False)
+        run_evaluation(model, tokenizer, "data/processed/ood_test.jsonl", ft_ood_raw)
         results_ood["finetuned"] = process_results(ft_ood_raw, target_format="finetuned")
     else:
         print(f"LoRA path {lora_path} not found. Skipping fine-tuned evaluation.")
