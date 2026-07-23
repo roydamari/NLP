@@ -65,7 +65,7 @@ def run_evaluation(model, tokenizer, input_file, output_file, is_baseline=False)
                     "gold_aliases": item["answers"]["aliases"]
                 }) + "\n")
 
-def process_results(raw_file):
+def process_results(raw_file, target_format="baseline"):
     """
     Parse confidences and compute ECE/MSE.
     """
@@ -90,7 +90,7 @@ def process_results(raw_file):
             confs.append(conf)
             
             # Check correctness
-            is_correct_bool, is_fallback = check_match(gen, gold, use_old_method=False)
+            is_correct_bool, is_fallback = check_match(gen, gold, use_old_method=False, target_format=target_format)
             if is_fallback:
                 fallback_count += 1
                 
@@ -126,9 +126,9 @@ def main():
     results_ood = {}
     
     if os.path.exists("outputs/eval_results/baseline_indist.jsonl"):
-        results_indist["baseline"] = process_results("outputs/eval_results/baseline_indist.jsonl")
+        results_indist["baseline"] = process_results("outputs/eval_results/baseline_indist.jsonl", target_format="baseline")
     if os.path.exists("outputs/eval_results/baseline_ood.jsonl"):
-        results_ood["baseline"] = process_results("outputs/eval_results/baseline_ood.jsonl")
+        results_ood["baseline"] = process_results("outputs/eval_results/baseline_ood.jsonl", target_format="baseline")
         
     # 2. Run finetuned model
     if os.path.exists(lora_path):
@@ -137,10 +137,17 @@ def main():
         if tokenizer.pad_token is None:
             tokenizer.pad_token = tokenizer.eos_token
             
+        if torch.cuda.is_available():
+            device_map = {"": torch.cuda.current_device()}
+        elif torch.backends.mps.is_available():
+            device_map = {"": "mps"}
+        else:
+            device_map = "auto"
+            
         base_model = AutoModelForCausalLM.from_pretrained(
             model_id, 
             torch_dtype=torch.bfloat16, 
-            device_map="auto"
+            device_map=device_map
         )
         
         print(f"Loading LoRA adapters from {lora_path}...")
@@ -150,13 +157,13 @@ def main():
         print("Evaluating fine-tuned model on In-Distribution (TriviaQA)...")
         ft_indist_raw = "outputs/eval_results/finetuned_indist.jsonl"
         run_evaluation(model, tokenizer, "data/processed/triviaqa_test.jsonl", ft_indist_raw, is_baseline=False)
-        results_indist["finetuned"] = process_results(ft_indist_raw)
+        results_indist["finetuned"] = process_results(ft_indist_raw, target_format="finetuned")
         
         # OOD Eval
         print("Evaluating fine-tuned model on OOD (Natural Questions)...")
         ft_ood_raw = "outputs/eval_results/finetuned_ood.jsonl"
         run_evaluation(model, tokenizer, "data/processed/ood_test.jsonl", ft_ood_raw, is_baseline=False)
-        results_ood["finetuned"] = process_results(ft_ood_raw)
+        results_ood["finetuned"] = process_results(ft_ood_raw, target_format="finetuned")
     else:
         print(f"LoRA path {lora_path} not found. Skipping fine-tuned evaluation.")
         

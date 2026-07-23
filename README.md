@@ -26,6 +26,6 @@ sbatch scripts/run_eval.slurm
 ```
 
 ## Sanity Checks
-- **Leakage**: `data_prep.py` asserts no overlap between TriviaQA and Natural Questions.
+- **Leakage**: `data_prep.py` asserts no overlap between TriviaQA and WebQuestions.
 - **Normalization/Alias Matching**: Run `python src/scoring.py` to generate `scoring_sanity.md` and visually verify label correctness before fine-tuning.
 - **Overfitting**: Run `python src/train.py --sanity_check` to verify the model can overfit a 50-example batch.

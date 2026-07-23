@@ -14,6 +14,9 @@ def get_majority_vote_idx(generations):
     majority_norm_ans = counter.most_common(1)[0][0]
     
     # Return the first raw generation that matches the majority normalized answer
+    # FUTURE CLEANUP: Prefer returning a non-fallback generation if multiple 
+    # duplicates exist among the samples. Currently this just takes the first match, 
+    # which might be a fallback (and thus get excluded) even if a clean duplicate exists.
     for i, g in enumerate(generations):
         if normalize_answer(g) == majority_norm_ans:
             return i

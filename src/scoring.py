@@ -37,8 +37,8 @@ def main():
             for g in generations:
                 total_generations += 1
                 
-                old_match, _ = check_match(g, gold_aliases, use_old_method=True)
-                new_match, is_fallback = check_match(g, gold_aliases, use_old_method=False)
+                old_match, _ = check_match(g, gold_aliases, use_old_method=True, target_format="baseline")
+                new_match, is_fallback = check_match(g, gold_aliases, use_old_method=False, target_format="baseline")
                 
                 if is_fallback:
                     fallback_count += 1
@@ -83,7 +83,7 @@ def main():
             f.write(f"**Score:** {item['k']}/10\n\n")
             f.write("**Generations:**\n")
             for g, is_fb in zip(item["generations"], item["is_fallbacks"]):
-                matched, _ = check_match(g, item["gold_aliases"])
+                matched, _ = check_match(g, item["gold_aliases"], target_format="baseline")
                 mark = "✅" if matched else "❌"
                 fb = " `[FALLBACK]`" if is_fb else ""
                 f.write(f"- {mark}{fb} `{g}`\n")

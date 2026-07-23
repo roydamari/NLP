@@ -33,18 +33,18 @@ def main():
     trivia_test = trivia_test.shuffle(seed=config["seed"]).select(range(min(test_subset_size, len(trivia_test))))
     
     print("Loading WebQuestions (OOD)...")
-    nq = load_dataset("stanfordnlp/web_questions", split="test")
+    webq = load_dataset("stanfordnlp/web_questions", split="test")
     ood_subset_size = config.get("ood_subset_size", 1000)
-    nq_sub = nq.shuffle(seed=config["seed"]).select(range(min(ood_subset_size, len(nq))))
+    webq_sub = webq.shuffle(seed=config["seed"]).select(range(min(ood_subset_size, len(webq))))
     
     # Leakage check logic: assert zero overlap between OOD questions and TriviaQA
     print("Running leakage check...")
     trivia_train_qs = {normalize_answer(item["question"]) for item in trivia_train}
     trivia_test_qs = {normalize_answer(item["question"]) for item in trivia_test}
-    nq_qs = {normalize_answer(item["question"]) for item in nq_sub}
+    webq_qs = {normalize_answer(item["question"]) for item in webq_sub}
     
-    overlap_train = trivia_train_qs.intersection(nq_qs)
-    overlap_test = trivia_test_qs.intersection(nq_qs)
+    overlap_train = trivia_train_qs.intersection(webq_qs)
+    overlap_test = trivia_test_qs.intersection(webq_qs)
     assert len(overlap_train) == 0, f"LEAKAGE DETECTED: {len(overlap_train)} questions overlap between TriviaQA train and WebQuestions!"
     assert len(overlap_test) == 0, f"LEAKAGE DETECTED: {len(overlap_test)} questions overlap between TriviaQA test and WebQuestions!"
     print("Leakage check passed! No question overlap detected.")
@@ -76,7 +76,7 @@ def main():
             }) + "\n")
             
     with open("data/processed/ood_test.jsonl", "w") as f:
-        for i, item in enumerate(nq_sub):
+        for i, item in enumerate(webq_sub):
             aliases = item["answers"]
             
             f.write(json.dumps({

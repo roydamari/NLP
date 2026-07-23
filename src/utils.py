@@ -25,20 +25,23 @@ def normalize_answer(s):
         return text.lower()
     return white_space_fix(remove_articles(remove_punc(lower(s))))
 
-def extract_answer(text):
+def extract_answer(text, target_format="baseline"):
     """
     Extracts the final answer from the generation.
-    Looks for the last occurrence of 'Answer:'.
     Returns (extracted_text, is_fallback).
     """
-    marker = "Answer:"
-    idx = text.rfind(marker)
-    if idx != -1:
-        # Extract text after the marker
-        extracted = text[idx + len(marker):].strip()
-        return extracted, False
-    
-    # Fallback: extract the last sentence or last ~15 words
+    if target_format == "baseline":
+        marker = "Answer:"
+        idx = text.rfind(marker)
+        if idx != -1:
+            return text[idx + len(marker):].strip(), False
+    elif target_format == "finetuned":
+        # Lenient match: case-insensitive, optional leading period/whitespace, allows "level"
+        match = re.search(r'(?i)(.*?)(?:\.?\s*my confidence(?: level)? is)', text)
+        if match and match.group(1).strip():
+            return match.group(1).strip(), False
+            
+    # Fallback (used if marker/confidence phrase isn't found, or regex returns empty)
     sentences = re.split(r'(?<=[.!?]) +', text)
     if sentences:
         fallback = sentences[-1].strip()
@@ -46,13 +49,13 @@ def extract_answer(text):
         fallback = " ".join(text.split()[-15:])
     return fallback, True
 
-def check_match(generation, aliases, use_old_method=False):
+def check_match(generation, aliases, use_old_method=False, target_format="baseline"):
     """Check if the normalized generation contains any of the normalized aliases."""
     if use_old_method:
         target_text = generation
         is_fallback = False
     else:
-        target_text, is_fallback = extract_answer(generation)
+        target_text, is_fallback = extract_answer(generation, target_format=target_format)
         
     norm_gen = normalize_answer(target_text)
     for alias in aliases:

@@ -44,10 +44,17 @@ def main():
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
         
+    if torch.cuda.is_available():
+        device_map = {"": torch.cuda.current_device()}
+    elif torch.backends.mps.is_available():
+        device_map = {"": "mps"}
+    else:
+        device_map = "auto"
+        
     model = AutoModelForCausalLM.from_pretrained(
         model_id, 
         torch_dtype=torch.bfloat16, 
-        device_map="auto"
+        device_map=device_map
     )
     
     batch_size = 4
