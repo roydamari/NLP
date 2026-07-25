@@ -1,0 +1,5 @@
+outputs/
+data/labeled/
+__pycache__/
+*.pyc
+.DS_Store
