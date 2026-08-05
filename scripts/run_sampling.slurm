@@ -7,6 +7,9 @@
 #SBATCH --time=12:00:00
 #SBATCH --output=slurm_logs/sampling_%j.out
 
+mkdir -p slurm_logs
+source venv/bin/activate
+
 # Set HF cache to persistent storage, not home directory!
 export HF_HOME=/home/morg/NLP_2526b/$USER/.cache/huggingface
 

@@ -1,7 +1,7 @@
 import json
 import random
 from collections import Counter
-from utils import set_seed, normalize_answer
+from utils import set_seed, normalize_answer, extract_answer
 
 def get_majority_vote_idx(generations):
     """
@@ -62,7 +62,7 @@ def main():
                 # Instruction format (this can be formatted later using a ChatTemplate in train.py)
                 # But here we provide the raw user/assistant turns
                 # Strip the "Answer: " prefix if it exists to avoid double prepending
-                clean_ans = chosen_answer.replace("Answer: ", "").replace("Answer:", "").strip()
+                clean_ans, _ = extract_answer(chosen_answer, target_format="baseline")
                 messages = [
                     {"role": "user", "content": item["question"]},
                     {"role": "assistant", "content": f"{clean_ans}. My confidence is {k} out of 10."}

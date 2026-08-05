@@ -157,7 +157,7 @@ def main():
         results_indist["finetuned"] = process_results(ft_indist_raw, target_format="finetuned")
         
         # OOD Eval
-        print("Evaluating fine-tuned model on OOD (Natural Questions)...")
+        print("Evaluating fine-tuned model on OOD (WebQuestions)...")
         ft_ood_raw = "outputs/eval_results/finetuned_ood.jsonl"
         run_evaluation(model, tokenizer, "data/processed/ood_test.jsonl", ft_ood_raw)
         results_ood["finetuned"] = process_results(ft_ood_raw, target_format="finetuned")
