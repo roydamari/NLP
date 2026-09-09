@@ -2,12 +2,12 @@
 # This is the primary lever for compute budget. Adjust train_subset_size if the first Slurm run is too slow.
 
 model_name: "meta-llama/Llama-3.2-3B-Instruct"
-n_samples: 10
+n_samples: 20
 sampling_temperature: 1.0
 seed: 42
-train_subset_size: 100
-test_subset_size: 50
-ood_subset_size: 50
+train_subset_size: 1000
+test_subset_size: 500
+ood_subset_size: 500
 lora_r: 16
 lora_alpha: 32
 learning_rate: 3.0e-4

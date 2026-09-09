@@ -8,7 +8,7 @@
 #SBATCH --output=slurm_logs/finetune_%j.out
 
 mkdir -p slurm_logs
-source venv/bin/activate
+source /home/morg/NLP_2526b/$USER/venv/bin/activate
 
 # Set HF cache to persistent storage, not home directory!
 export HF_HOME=/home/morg/NLP_2526b/$USER/.cache/huggingface
