@@ -2,7 +2,8 @@ import os
 import json
 import yaml
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoTokenizer
+from model_loading import get_device_map, load_model_for_inference
 from tqdm import tqdm
 
 def load_config():
@@ -12,46 +13,34 @@ def load_config():
 def main():
     config = load_config()
     model_id = config["model_name"]
-    
+
     tokenizer = AutoTokenizer.from_pretrained(model_id, padding_side="left")
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
-        
-    if torch.cuda.is_available():
-        device_map = {"": torch.cuda.current_device()}
-    elif torch.backends.mps.is_available():
-        device_map = {"": "mps"}
-    else:
-        device_map = "auto"
-        
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id, 
-        torch_dtype=torch.bfloat16, 
-        device_map=device_map
-    )
-    
+
+    device_map = get_device_map()
+    model = load_model_for_inference(model_id, config.get("use_4bit", False), device_map)
+
     os.makedirs("outputs/eval_results", exist_ok=True)
-    
+
     datasets_to_run = [
         ("data/processed/triviaqa_test.jsonl", "outputs/eval_results/baseline_indist.jsonl"),
         ("data/processed/ood_test.jsonl", "outputs/eval_results/baseline_ood.jsonl")
     ]
-    
+
     batch_size = 4
-    
+
     for in_file, out_file in datasets_to_run:
         print(f"Running baseline evaluation for {in_file}...")
         with open(in_file, "r") as f:
             dataset = [json.loads(line) for line in f]
-            
+
         with open(out_file, "w") as f_out:
             for i in tqdm(range(0, len(dataset), batch_size)):
                 batch = dataset[i:i+batch_size]
-                
-                # Zero-shot "Just Ask for Calibration" prompt from Tian et al.
+
                 input_ids_list = []
                 for item in batch:
-                    # Construct chat message
                     msgs = [
                         {"role": "user", "content": f"{item['question']}\n\nAnswer the question in one short line. Start your response with \"Answer:\" followed by only your answer. Do not repeat these instructions.\n\nFinally, provide your answer followed by 'My confidence is X out of 10' where X is your confidence."}
                     ]
@@ -62,25 +51,24 @@ def main():
                         input_ids_list.append(encoded.input_ids)
                     else:
                         input_ids_list.append(encoded)
-                    
+
                 inputs = tokenizer.pad({"input_ids": input_ids_list}, return_tensors="pt", padding=True).to(model.device)
-                
+
                 with torch.no_grad():
                     outputs = model.generate(
                         **inputs,
                         max_new_tokens=50,
-                        do_sample=False, # greedy for evaluation
+                        do_sample=False,
                         pad_token_id=tokenizer.pad_token_id
                     )
-                    
+
                 input_len = inputs["input_ids"].shape[1]
                 generated_tokens = outputs[:, input_len:]
                 decoded = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
-                
+
                 for b_idx, item in enumerate(batch):
-                    # extract generated part
                     gen = decoded[b_idx]
-                    
+
                     f_out.write(json.dumps({
                         "question_id": item["id"],
                         "question": item["question"],
@@ -88,6 +76,6 @@ def main():
                         "gold_aliases": item["answers"]["aliases"]
                     }) + "\n")
                     f_out.flush()
-                    
+
 if __name__ == "__main__":
     main()

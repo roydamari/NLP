@@ -3,10 +3,11 @@ import argparse
 import yaml
 import torch
 from datasets import load_dataset
-from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer, DataCollatorForSeq2Seq
+from transformers import AutoTokenizer, TrainingArguments, Trainer, DataCollatorForSeq2Seq
 from peft import LoraConfig, get_peft_model
 from utils import set_seed, parse_confidence
 from confidence_loss import build_digit_token_ids, find_confidence_token_index
+from model_loading import get_device_map, load_model_for_training
 
 def load_config():
     with open("configs/base.yaml", "r") as f:
@@ -69,6 +70,7 @@ def main():
 
     config = load_config()
     set_seed(config["seed"])
+    use_4bit = config.get("use_4bit", False)
 
     model_id = config["model_name"]
     tokenizer = AutoTokenizer.from_pretrained(model_id)
@@ -142,14 +144,8 @@ def main():
     dataset = dataset.map(tokenize_function, batched=True)
     dataset = dataset.remove_columns(["messages"])
 
-    if torch.cuda.is_available():
-        device_map = {"": torch.cuda.current_device()}
-    elif torch.backends.mps.is_available():
-        device_map = {"": "mps"}
-    else:
-        device_map = "auto"
-
-    model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.bfloat16, device_map=device_map)
+    device_map = get_device_map()
+    model = load_model_for_training(model_id, use_4bit, device_map)
 
     lora_config = LoraConfig(
         r=config["lora_r"],
@@ -161,8 +157,8 @@ def main():
 
     training_args = TrainingArguments(
         output_dir=output_dir,
-        per_device_train_batch_size=4,
-        gradient_accumulation_steps=4,
+        per_device_train_batch_size=2,
+        gradient_accumulation_steps=8,
         learning_rate=float(config["learning_rate"]),
         logging_steps=logging_steps,
         logging_strategy="epoch" if not args.sanity_check else "steps",
@@ -172,6 +168,7 @@ def main():
         save_total_limit=2,
         bf16=True,
         remove_unused_columns=False,
+        gradient_checkpointing=True,
     )
 
     base_collator = DataCollatorForSeq2Seq(tokenizer, padding=True)

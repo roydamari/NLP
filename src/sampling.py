@@ -2,8 +2,9 @@ import os
 import json
 import yaml
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoTokenizer
 from utils import set_seed
+from model_loading import get_device_map, load_model_for_inference
 from tqdm import tqdm
 
 def load_config():
@@ -13,16 +14,15 @@ def load_config():
 def main():
     config = load_config()
     set_seed(config["seed"])
-    
+
     os.makedirs("data/labeled", exist_ok=True)
-    
+
     out_file = "data/labeled/generations.jsonl"
     input_file = "data/processed/triviaqa_finetune.jsonl"
-    
+
     with open(input_file, "r") as f:
         dataset = [json.loads(line) for line in f]
-    
-    # Resume logic: load already-completed question IDs from the JSONL
+
     done_ids = set()
     if os.path.exists(out_file):
         with open(out_file, "r") as f:
@@ -31,37 +31,26 @@ def main():
                 done_ids.add(item["question_id"])
 
     to_process = [item for item in dataset if item["id"] not in done_ids]
-    
+
     if not to_process:
         print("All samples already generated! Exiting.")
         return
-        
+
     print(f"Resuming/starting generation for {len(to_process)} samples...")
-    
+
     model_id = config["model_name"]
     print(f"Loading model {model_id}...")
     tokenizer = AutoTokenizer.from_pretrained(model_id, padding_side="left")
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
-        
-    if torch.cuda.is_available():
-        device_map = {"": torch.cuda.current_device()}
-    elif torch.backends.mps.is_available():
-        device_map = {"": "mps"}
-    else:
-        device_map = "auto"
-        
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id, 
-        torch_dtype=torch.bfloat16, 
-        device_map=device_map
-    )
-    
+
+    device_map = get_device_map()
+    model = load_model_for_inference(model_id, config.get("use_4bit", False), device_map)
+
     batch_size = 4
     n_samples = config["n_samples"]
     temp = config["sampling_temperature"]
-    
-    # Open in append mode so crashed runs can resume safely
+
     with open(out_file, "a") as out_f:
         for i in tqdm(range(0, len(to_process), batch_size)):
             batch = to_process[i:i+batch_size]
@@ -77,9 +66,9 @@ def main():
                     input_ids_list.append(encoded.input_ids)
                 else:
                     input_ids_list.append(encoded)
-            
+
             inputs = tokenizer.pad({"input_ids": input_ids_list}, return_tensors="pt", padding=True).to(model.device)
-            
+
             with torch.no_grad():
                 outputs = model.generate(
                     **inputs,
@@ -89,17 +78,16 @@ def main():
                     num_return_sequences=n_samples,
                     pad_token_id=tokenizer.pad_token_id
                 )
-                
+
             input_len = inputs["input_ids"].shape[1]
             generated_tokens = outputs[:, input_len:]
             decoded = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
-            
+
             for b_idx, item in enumerate(batch):
                 start_idx = b_idx * n_samples
                 end_idx = start_idx + n_samples
                 gens = [g.strip() for g in decoded[start_idx:end_idx]]
-                
-                # Write one line per question immediately (crash-safe)
+
                 out_f.write(json.dumps({
                     "question_id": item["id"],
                     "question": item["question"],
