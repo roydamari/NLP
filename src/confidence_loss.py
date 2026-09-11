@@ -5,7 +5,7 @@ def build_digit_token_ids(tokenizer, max_conf=10):
     mapping = {}
     for v in range(max_conf + 1):
         ids = tokenizer.encode(f" {v}", add_special_tokens=False)
-        mapping[v] = ids[0]
+        mapping[v] = ids[-1]
     return mapping
 
 def find_confidence_token_index(tokenizer, full_ids, prompt_len, assistant_text, k):
