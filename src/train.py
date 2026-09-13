@@ -59,6 +59,8 @@ class ConfidenceAwareTrainer(Trainer):
 
             brier_loss = ((expected_conf - targets) ** 2).mean()
             total_loss = lm_loss + self.brier_weight * brier_loss
+            if self.state.global_step % 5 == 0:
+                print(f"[DEBUG] step={self.state.global_step} lm_loss={lm_loss.item():.4f} brier_loss={brier_loss.item():.4f} total={total_loss.item():.4f}")
 
         return (total_loss, outputs) if return_outputs else total_loss
 
@@ -126,6 +128,8 @@ def main():
             conf_idx = None
             if conf_val is not None:
                 conf_idx = find_confidence_token_index(tokenizer, encoded, prompt_len, assistant_text, conf_val)
+                if conf_idx is not None:
+                    labels[conf_idx] = -100
 
             input_ids_list.append(encoded)
             attention_mask_list.append([1] * len(encoded))
@@ -167,6 +171,7 @@ def main():
         eval_strategy="epoch" if has_val else "no",
         save_total_limit=2,
         bf16=True,
+        weight_decay=0.05,
         remove_unused_columns=False,
         gradient_checkpointing=True,
     )
