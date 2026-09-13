@@ -57,7 +57,7 @@ def main():
                 with torch.no_grad():
                     outputs = model.generate(
                         **inputs,
-                        max_new_tokens=50,
+                        max_new_tokens=90,
                         do_sample=False,
                         pad_token_id=tokenizer.pad_token_id
                     )

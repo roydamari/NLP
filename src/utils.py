@@ -89,4 +89,24 @@ def parse_confidence(text):
         except ValueError:
             pass
 
+    # Fallback: percentage format, e.g. "90%" or "confidence is 90%"
+    match = re.search(r'(\d{1,3})\s*%', text)
+    if match:
+        try:
+            pct = int(match.group(1))
+            if 0 <= pct <= 100:
+                return round(pct / 10)
+        except ValueError:
+            pass
+
+    # Fallback: X out of 100 format
+    match = re.search(r'(\d{1,3})\s*(?:out of|/)\s*100', text, re.IGNORECASE)
+    if match:
+        try:
+            val = int(match.group(1))
+            if 0 <= val <= 100:
+                return round(val / 10)
+        except ValueError:
+            pass
+
     return None

@@ -2,6 +2,7 @@ import os
 import argparse
 import yaml
 import torch
+import torch.nn.functional as F
 from datasets import load_dataset
 from transformers import AutoTokenizer, TrainingArguments, Trainer, DataCollatorForSeq2Seq
 from peft import LoraConfig, get_peft_model
@@ -19,23 +20,23 @@ class ConfidenceDataCollator:
 
     def __call__(self, features):
         conf_idx = [f.pop("conf_idx") for f in features]
-        conf_target = [f.pop("conf_target") for f in features]
+        conf_target_val = [f.pop("conf_target_val") for f in features]
         batch = self.base_collator(features)
         batch["conf_idx"] = torch.tensor(conf_idx, dtype=torch.long)
-        batch["conf_target"] = torch.tensor(conf_target, dtype=torch.float)
+        batch["conf_target_val"] = torch.tensor(conf_target_val, dtype=torch.long)
         return batch
 
 class ConfidenceAwareTrainer(Trainer):
-    def __init__(self, *args, digit_token_ids=None, brier_weight=2.0, **kwargs):
+    def __init__(self, *args, digit_token_ids=None, smoothing_sigma=1.0, **kwargs):
         super().__init__(*args, **kwargs)
         values = sorted(digit_token_ids.keys())
         self.digit_values = torch.tensor(values, dtype=torch.float)
         self.digit_ids = torch.tensor([digit_token_ids[v] for v in values], dtype=torch.long)
-        self.brier_weight = brier_weight
+        self.sigma = smoothing_sigma
 
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
         conf_idx = inputs.pop("conf_idx")
-        conf_target = inputs.pop("conf_target")
+        conf_target_val = inputs.pop("conf_target_val")
         outputs = model(**inputs)
         lm_loss = outputs.loss
         logits = outputs.logits
@@ -50,17 +51,19 @@ class ConfidenceAwareTrainer(Trainer):
         else:
             batch_idx = torch.arange(logits.size(0), device=device)[valid_mask]
             tok_idx = conf_idx[valid_mask].to(device)
-            targets = conf_target[valid_mask].to(device)
+            targets = conf_target_val[valid_mask].to(device).float()
 
             pos_logits = logits[batch_idx, tok_idx]
             digit_logits = pos_logits[:, digit_ids]
-            probs = torch.softmax(digit_logits, dim=-1)
-            expected_conf = (probs * digit_values.unsqueeze(0)).sum(dim=-1) / 10.0
+            log_probs = torch.nn.functional.log_softmax(digit_logits, dim=-1)
 
-            brier_loss = ((expected_conf - targets) ** 2).mean()
-            total_loss = lm_loss + self.brier_weight * brier_loss
+            dist = (digit_values.unsqueeze(0) - targets.unsqueeze(1)) ** 2
+            soft_targets = torch.softmax(-dist / (2 * self.sigma ** 2), dim=-1)
+
+            smooth_loss = -(soft_targets * log_probs).sum(dim=-1).mean()
+            total_loss = lm_loss + smooth_loss
             if self.state.global_step % 5 == 0:
-                print(f"[DEBUG] step={self.state.global_step} lm_loss={lm_loss.item():.4f} brier_loss={brier_loss.item():.4f} total={total_loss.item():.4f}")
+                print(f"[DEBUG] step={self.state.global_step} lm_loss={lm_loss.item():.4f} smooth_loss={smooth_loss.item():.4f} total={total_loss.item():.4f}")
 
         return (total_loss, outputs) if return_outputs else total_loss
 
@@ -104,7 +107,7 @@ def main():
 
     def tokenize_function(examples):
         input_ids_list, attention_mask_list, labels_list = [], [], []
-        conf_idx_list, conf_target_list = [], []
+        conf_idx_list, conf_target_val_list = [], []
 
         for msgs in examples["messages"]:
             encoded = tokenizer.apply_chat_template(msgs, tokenize=True, add_generation_prompt=False, return_dict=False)
@@ -135,14 +138,14 @@ def main():
             attention_mask_list.append([1] * len(encoded))
             labels_list.append(labels)
             conf_idx_list.append(conf_idx if conf_idx is not None else -1)
-            conf_target_list.append((conf_val / 10.0) if conf_val is not None else 0.0)
+            conf_target_val_list.append(conf_val if conf_val is not None else 0)
 
         return {
             "input_ids": input_ids_list,
             "attention_mask": attention_mask_list,
             "labels": labels_list,
             "conf_idx": conf_idx_list,
-            "conf_target": conf_target_list,
+            "conf_target_val": conf_target_val_list,
         }
 
     dataset = dataset.map(tokenize_function, batched=True)
@@ -189,7 +192,7 @@ def main():
         args=training_args,
         data_collator=data_collator,
         digit_token_ids=digit_token_ids,
-        brier_weight=2.0,
+        smoothing_sigma=1.0,
     )
 
     trainer.train()

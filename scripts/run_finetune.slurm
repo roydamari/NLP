@@ -9,6 +9,7 @@
 
 mkdir -p slurm_logs
 source /home/morg/NLP_2526b/$USER/venv/bin/activate
+source ~/.hf_token_env
 
 # Set HF cache to persistent storage, not home directory!
 export HF_HOME=/home/morg/NLP_2526b/$USER/.cache/huggingface

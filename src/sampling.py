@@ -72,7 +72,7 @@ def main():
             with torch.no_grad():
                 outputs = model.generate(
                     **inputs,
-                    max_new_tokens=50,
+                    max_new_tokens=90,
                     do_sample=True,
                     temperature=temp,
                     num_return_sequences=n_samples,

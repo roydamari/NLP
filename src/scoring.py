@@ -80,7 +80,7 @@ def main():
         for i, item in enumerate(sanity_examples):
             f.write(f"## Q{i+1}: {item['question']}\n")
             f.write(f"**Gold aliases (sample):** {item['gold_aliases'][:3]}\n\n")
-            f.write(f"**Score:** {item['k']}/10\n\n")
+            f.write(f"**Score:** {item['k']}/{20}\n\n")
             f.write("**Generations:**\n")
             for g, is_fb in zip(item["generations"], item["is_fallbacks"]):
                 matched, _ = check_match(g, item["gold_aliases"], target_format="baseline")
