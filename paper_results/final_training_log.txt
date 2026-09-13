@@ -1,0 +1,374 @@
+Starting fine-tuning phase...
+Scored 1000 questions.
+Diagnostic Disagreements (Old vs New Match): 8 / 20000
+Fallback Parse Rate: 1321 / 20000 (6.6%)
+Sanity check written to data/labeled/scoring_sanity.md.
+Wrote 867 train and 97 val samples (filtered out fallbacks).
+Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 867 examples [00:00, 10946.83 examples/s]
+Generating val split: 0 examples [00:00, ? examples/s]Generating val split: 97 examples [00:00, 9302.77 examples/s]
+Map:   0%|          | 0/867 [00:00<?, ? examples/s]Map: 100%|██████████| 867/867 [00:00<00:00, 1163.25 examples/s]Map: 100%|██████████| 867/867 [00:00<00:00, 1100.81 examples/s]
+Map:   0%|          | 0/97 [00:00<?, ? examples/s]Map: 100%|██████████| 97/97 [00:00<00:00, 880.18 examples/s]Map: 100%|██████████| 97/97 [00:00<00:00, 717.25 examples/s]
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/254 [00:00<?, ?it/s]Loading weights:   0%|          | 1/254 [00:21<1:32:05, 21.84s/it]Loading weights:   1%|          | 3/254 [00:22<25:16,  6.04s/it]  Loading weights:   2%|▏         | 4/254 [00:23<17:59,  4.32s/it]Loading weights:   2%|▏         | 5/254 [00:25<13:28,  3.25s/it]Loading weights:   3%|▎         | 8/254 [00:25<05:52,  1.43s/it]Loading weights:   4%|▎         | 9/254 [00:26<05:06,  1.25s/it]Loading weights:   5%|▍         | 12/254 [00:27<03:27,  1.17it/s]Loading weights:   5%|▌         | 13/254 [00:28<03:38,  1.10it/s]Loading weights:   6%|▌         | 14/254 [00:30<04:24,  1.10s/it]Loading weights:   6%|▋         | 16/254 [00:30<02:49,  1.41it/s]Loading weights:   7%|▋         | 17/254 [00:30<02:38,  1.50it/s]Loading weights:   7%|▋         | 18/254 [00:31<02:24,  1.63it/s]Loading weights:   7%|▋         | 19/254 [00:31<02:03,  1.90it/s]Loading weights:   8%|▊         | 21/254 [00:32<02:00,  1.93it/s]Loading weights:   9%|▊         | 22/254 [00:33<02:29,  1.55it/s]Loading weights:   9%|▉         | 23/254 [00:34<02:47,  1.38it/s]Loading weights:  10%|▉         | 25/254 [00:34<01:42,  2.23it/s]Loading weights:  10%|█         | 26/254 [00:35<01:38,  2.31it/s]Loading weights:  11%|█         | 27/254 [00:35<01:48,  2.09it/s]Loading weights:  12%|█▏        | 30/254 [00:37<01:56,  1.92it/s]Loading weights:  12%|█▏        | 31/254 [00:39<02:55,  1.27it/s]Loading weights:  13%|█▎        | 32/254 [00:41<03:38,  1.02it/s]Loading weights:  13%|█▎        | 34/254 [00:41<02:24,  1.52it/s]Loading weights:  14%|█▍        | 35/254 [00:41<02:19,  1.57it/s]Loading weights:  14%|█▍        | 36/254 [00:42<02:29,  1.46it/s]Loading weights:  15%|█▌        | 39/254 [00:43<01:47,  1.99it/s]Loading weights:  16%|█▌        | 40/254 [00:44<02:08,  1.66it/s]Loading weights:  16%|█▌        | 41/254 [00:45<02:26,  1.45it/s]Loading weights:  17%|█▋        | 43/254 [00:45<01:35,  2.20it/s]Loading weights:  17%|█▋        | 44/254 [00:46<01:29,  2.36it/s]Loading weights:  18%|█▊        | 45/254 [00:46<01:25,  2.46it/s]Loading weights:  18%|█▊        | 46/254 [00:46<01:09,  3.00it/s]Loading weights:  19%|█▉        | 48/254 [00:47<01:24,  2.44it/s]Loading weights:  19%|█▉        | 49/254 [00:48<01:54,  1.79it/s]Loading weights:  20%|█▉        | 50/254 [00:49<02:17,  1.49it/s]Loading weights:  20%|██        | 52/254 [00:49<01:24,  2.39it/s]Loading weights:  21%|██        | 53/254 [00:50<01:21,  2.48it/s]Loading weights:  21%|██▏       | 54/254 [00:50<01:20,  2.48it/s]Loading weights:  22%|██▏       | 55/254 [00:50<01:05,  3.04it/s]Loading weights:  22%|██▏       | 57/254 [00:51<01:18,  2.52it/s]Loading weights:  23%|██▎       | 58/254 [00:52<01:45,  1.86it/s]Loading weights:  23%|██▎       | 59/254 [00:53<02:08,  1.51it/s]Loading weights:  24%|██▍       | 61/254 [00:53<01:20,  2.41it/s]Loading weights:  24%|██▍       | 62/254 [00:54<01:15,  2.53it/s]Loading weights:  25%|██▍       | 63/254 [00:54<01:13,  2.61it/s]Loading weights:  25%|██▌       | 64/254 [00:54<00:59,  3.22it/s]Loading weights:  26%|██▌       | 66/254 [00:55<01:12,  2.58it/s]Loading weights:  26%|██▋       | 67/254 [00:56<01:39,  1.89it/s]Loading weights:  27%|██▋       | 68/254 [00:57<02:01,  1.53it/s]Loading weights:  28%|██▊       | 70/254 [00:57<01:14,  2.46it/s]Loading weights:  28%|██▊       | 71/254 [00:58<01:14,  2.46it/s]Loading weights:  28%|██▊       | 72/254 [00:58<01:12,  2.53it/s]Loading weights:  29%|██▊       | 73/254 [00:58<00:58,  3.09it/s]Loading weights:  30%|██▉       | 75/254 [00:59<01:09,  2.58it/s]Loading weights:  30%|██▉       | 76/254 [01:00<01:36,  1.84it/s]Loading weights:  30%|███       | 77/254 [01:01<01:55,  1.54it/s]Loading weights:  31%|███       | 79/254 [01:01<01:10,  2.48it/s]Loading weights:  31%|███▏      | 80/254 [01:02<01:07,  2.58it/s]Loading weights:  32%|███▏      | 81/254 [01:02<01:05,  2.62it/s]Loading weights:  32%|███▏      | 82/254 [01:02<00:54,  3.18it/s]Loading weights:  33%|███▎      | 84/254 [01:03<01:04,  2.64it/s]Loading weights:  33%|███▎      | 85/254 [01:04<01:27,  1.94it/s]Loading weights:  34%|███▍      | 86/254 [01:05<01:46,  1.57it/s]Loading weights:  35%|███▌      | 89/254 [01:06<01:04,  2.55it/s]Loading weights:  35%|███▌      | 90/254 [01:06<01:03,  2.58it/s]Loading weights:  36%|███▌      | 91/254 [01:06<00:53,  3.04it/s]Loading weights:  37%|███▋      | 93/254 [01:08<01:34,  1.71it/s]Loading weights:  37%|███▋      | 94/254 [01:09<01:47,  1.49it/s]Loading weights:  37%|███▋      | 95/254 [01:10<02:09,  1.22it/s]Loading weights:  38%|███▊      | 97/254 [01:10<01:20,  1.95it/s]Loading weights:  39%|███▊      | 98/254 [01:11<01:22,  1.90it/s]Loading weights:  39%|███▉      | 99/254 [01:11<01:15,  2.06it/s]Loading weights:  39%|███▉      | 100/254 [01:11<01:02,  2.48it/s]Loading weights:  40%|████      | 102/254 [01:12<01:06,  2.30it/s]Loading weights:  41%|████      | 103/254 [01:14<01:51,  1.36it/s]Loading weights:  41%|████      | 104/254 [01:15<01:59,  1.25it/s]Loading weights:  42%|████▏     | 106/254 [01:15<01:15,  1.97it/s]Loading weights:  42%|████▏     | 107/254 [01:16<01:09,  2.12it/s]Loading weights:  43%|████▎     | 108/254 [01:16<01:15,  1.94it/s]Loading weights:  43%|████▎     | 109/254 [01:16<00:59,  2.42it/s]Loading weights:  44%|████▎     | 111/254 [01:18<01:14,  1.91it/s]Loading weights:  44%|████▍     | 112/254 [01:19<01:31,  1.56it/s]Loading weights:  44%|████▍     | 113/254 [01:20<01:44,  1.34it/s]Loading weights:  45%|████▌     | 115/254 [01:20<01:03,  2.18it/s]Loading weights:  46%|████▌     | 116/254 [01:21<01:13,  1.87it/s]Loading weights:  46%|████▋     | 118/254 [01:21<00:48,  2.81it/s]Loading weights:  47%|████▋     | 120/254 [01:22<00:55,  2.43it/s]Loading weights:  48%|████▊     | 121/254 [01:24<01:31,  1.45it/s]Loading weights:  48%|████▊     | 122/254 [01:25<01:41,  1.30it/s]Loading weights:  49%|████▉     | 124/254 [01:25<01:04,  2.02it/s]Loading weights:  49%|████▉     | 125/254 [01:25<01:00,  2.13it/s]Loading weights:  50%|████▉     | 126/254 [01:26<01:04,  1.99it/s]Loading weights:  50%|█████     | 127/254 [01:26<00:52,  2.43it/s]Loading weights:  51%|█████     | 129/254 [01:27<01:02,  2.00it/s]Loading weights:  51%|█████     | 130/254 [01:28<01:17,  1.61it/s]Loading weights:  52%|█████▏    | 131/254 [01:31<02:13,  1.08s/it]Loading weights:  52%|█████▏    | 133/254 [01:31<01:24,  1.43it/s]Loading weights:  53%|█████▎    | 134/254 [01:32<01:30,  1.33it/s]Loading weights:  53%|█████▎    | 135/254 [01:33<01:32,  1.28it/s]Loading weights:  54%|█████▎    | 136/254 [01:33<01:17,  1.51it/s]Loading weights:  54%|█████▍    | 138/254 [01:36<01:45,  1.10it/s]Loading weights:  55%|█████▍    | 139/254 [01:38<02:28,  1.29s/it]Loading weights:  55%|█████▌    | 140/254 [01:41<02:59,  1.58s/it]Loading weights:  56%|█████▌    | 142/254 [01:41<01:49,  1.02it/s]Loading weights:  56%|█████▋    | 143/254 [01:42<01:46,  1.05it/s]Loading weights:  57%|█████▋    | 144/254 [01:43<01:50,  1.00s/it]Loading weights:  58%|█████▊    | 147/254 [01:44<01:09,  1.54it/s]Loading weights:  58%|█████▊    | 148/254 [01:45<01:14,  1.42it/s]Loading weights:  59%|█████▊    | 149/254 [01:47<01:55,  1.10s/it]Loading weights:  59%|█████▉    | 151/254 [01:48<01:15,  1.36it/s]Loading weights:  60%|█████▉    | 152/254 [01:49<01:18,  1.30it/s]Loading weights:  60%|██████    | 153/254 [01:50<01:22,  1.23it/s]Loading weights:  61%|██████    | 154/254 [01:50<01:07,  1.47it/s]Loading weights:  61%|██████▏   | 156/254 [01:52<01:28,  1.10it/s]Loading weights:  62%|██████▏   | 157/254 [01:55<02:00,  1.25s/it]Loading weights:  62%|██████▏   | 158/254 [01:57<02:28,  1.55s/it]Loading weights:  63%|██████▎   | 160/254 [01:57<01:30,  1.04it/s]Loading weights:  63%|██████▎   | 161/254 [01:58<01:27,  1.07it/s]Loading weights:  64%|██████▍   | 162/254 [01:59<01:26,  1.07it/s]Loading weights:  64%|██████▍   | 163/254 [02:00<01:10,  1.28it/s]Loading weights:  65%|██████▍   | 165/254 [02:02<01:26,  1.03it/s]Loading weights:  65%|██████▌   | 166/254 [02:04<01:56,  1.33s/it]Loading weights:  66%|██████▌   | 167/254 [02:07<02:26,  1.69s/it]Loading weights:  67%|██████▋   | 169/254 [02:08<01:28,  1.04s/it]Loading weights:  67%|██████▋   | 170/254 [02:08<01:24,  1.01s/it]Loading weights:  67%|██████▋   | 171/254 [02:09<01:22,  1.01it/s]Loading weights:  68%|██████▊   | 172/254 [02:10<01:06,  1.24it/s]Loading weights:  69%|██████▊   | 174/254 [02:12<01:19,  1.00it/s]Loading weights:  69%|██████▉   | 175/254 [02:15<01:45,  1.34s/it]Loading weights:  69%|██████▉   | 176/254 [02:17<02:06,  1.62s/it]Loading weights:  70%|███████   | 178/254 [02:17<01:16,  1.00s/it]Loading weights:  70%|███████   | 179/254 [02:19<01:19,  1.07s/it]Loading weights:  71%|███████▏  | 181/254 [02:19<00:48,  1.49it/s]Loading weights:  72%|███████▏  | 183/254 [02:20<00:44,  1.60it/s]Loading weights:  72%|███████▏  | 184/254 [02:22<00:59,  1.18it/s]Loading weights:  73%|███████▎  | 185/254 [02:23<01:10,  1.02s/it]Loading weights:  74%|███████▎  | 187/254 [02:23<00:43,  1.53it/s]Loading weights:  74%|███████▍  | 188/254 [02:24<00:42,  1.56it/s]Loading weights:  74%|███████▍  | 189/254 [02:25<00:42,  1.55it/s]Loading weights:  75%|███████▍  | 190/254 [02:25<00:33,  1.89it/s]Loading weights:  76%|███████▌  | 192/254 [02:26<00:31,  1.95it/s]Loading weights:  76%|███████▌  | 193/254 [02:27<00:38,  1.60it/s]Loading weights:  76%|███████▋  | 194/254 [02:28<00:47,  1.26it/s]Loading weights:  77%|███████▋  | 196/254 [02:28<00:28,  2.03it/s]Loading weights:  78%|███████▊  | 197/254 [02:29<00:26,  2.11it/s]Loading weights:  78%|███████▊  | 198/254 [02:29<00:26,  2.11it/s]Loading weights:  78%|███████▊  | 199/254 [02:29<00:21,  2.58it/s]Loading weights:  79%|███████▉  | 201/254 [02:30<00:24,  2.14it/s]Loading weights:  80%|███████▉  | 202/254 [02:32<00:32,  1.58it/s]Loading weights:  80%|███████▉  | 203/254 [02:33<00:38,  1.33it/s]Loading weights:  81%|████████  | 205/254 [02:33<00:23,  2.10it/s]Loading weights:  81%|████████  | 206/254 [02:33<00:21,  2.19it/s]Loading weights:  81%|████████▏ | 207/254 [02:34<00:21,  2.17it/s]Loading weights:  82%|████████▏ | 208/254 [02:34<00:17,  2.64it/s]Loading weights:  83%|████████▎ | 210/254 [02:35<00:19,  2.25it/s]Loading weights:  83%|████████▎ | 211/254 [02:36<00:25,  1.71it/s]Loading weights:  83%|████████▎ | 212/254 [02:37<00:31,  1.35it/s]Loading weights:  84%|████████▍ | 214/254 [02:37<00:18,  2.18it/s]Loading weights:  85%|████████▍ | 215/254 [02:38<00:17,  2.24it/s]Loading weights:  85%|████████▌ | 216/254 [02:38<00:18,  2.07it/s]Loading weights:  86%|████████▌ | 219/254 [02:39<00:14,  2.34it/s]Loading weights:  87%|████████▋ | 220/254 [02:41<00:19,  1.74it/s]Loading weights:  87%|████████▋ | 221/254 [02:43<00:30,  1.10it/s]Loading weights:  88%|████████▊ | 223/254 [02:43<00:18,  1.71it/s]Loading weights:  88%|████████▊ | 224/254 [02:43<00:16,  1.78it/s]Loading weights:  89%|████████▊ | 225/254 [02:44<00:15,  1.91it/s]Loading weights:  89%|████████▉ | 226/254 [02:44<00:12,  2.22it/s]Loading weights:  90%|████████▉ | 228/254 [02:45<00:12,  2.11it/s]Loading weights:  90%|█████████ | 229/254 [02:46<00:16,  1.52it/s]Loading weights:  91%|█████████ | 230/254 [02:47<00:17,  1.35it/s]Loading weights:  91%|█████████▏| 232/254 [02:47<00:10,  2.07it/s]Loading weights:  92%|█████████▏| 233/254 [02:48<00:09,  2.18it/s]Loading weights:  92%|█████████▏| 234/254 [02:48<00:09,  2.13it/s]Loading weights:  93%|█████████▎| 235/254 [02:48<00:07,  2.64it/s]Loading weights:  93%|█████████▎| 237/254 [02:50<00:10,  1.68it/s]Loading weights:  94%|█████████▎| 238/254 [02:51<00:11,  1.41it/s]Loading weights:  94%|█████████▍| 239/254 [02:53<00:12,  1.18it/s]Loading weights:  95%|█████████▍| 241/254 [02:53<00:06,  1.92it/s]Loading weights:  95%|█████████▌| 242/254 [02:53<00:05,  2.07it/s]Loading weights:  96%|█████████▌| 243/254 [02:53<00:05,  2.16it/s]Loading weights:  96%|█████████▌| 244/254 [02:54<00:03,  2.62it/s]Loading weights:  97%|█████████▋| 246/254 [02:55<00:03,  2.15it/s]Loading weights:  97%|█████████▋| 247/254 [02:56<00:04,  1.55it/s]Loading weights:  98%|█████████▊| 248/254 [02:57<00:04,  1.34it/s]Loading weights:  98%|█████████▊| 250/254 [02:57<00:01,  2.03it/s]Loading weights:  99%|█████████▉| 251/254 [02:58<00:01,  1.65it/s]Loading weights:  99%|█████████▉| 252/254 [02:59<00:01,  1.43it/s]Loading weights: 100%|█████████▉| 253/254 [03:00<00:00,  1.69it/s]Loading weights: 100%|██████████| 254/254 [03:00<00:00,  1.41it/s]
+trainable params: 2,293,760 || all params: 3,215,043,584 || trainable%: 0.0713
+  0%|          | 0/165 [00:00<?, ?it/s]  1%|          | 1/165 [00:08<23:53,  8.74s/it]  1%|          | 2/165 [00:13<17:16,  6.36s/it]  2%|▏         | 3/165 [00:18<14:58,  5.55s/it]  2%|▏         | 4/165 [00:22<13:58,  5.21s/it]  3%|▎         | 5/165 [00:27<13:29,  5.06s/it]  4%|▎         | 6/165 [00:32<13:09,  4.96s/it]  4%|▍         | 7/165 [00:36<12:38,  4.80s/it]  5%|▍         | 8/165 [00:41<12:50,  4.91s/it]  5%|▌         | 9/165 [00:46<12:37,  4.86s/it]  6%|▌         | 10/165 [00:51<12:22,  4.79s/it]  7%|▋         | 11/165 [00:55<12:04,  4.71s/it]  7%|▋         | 12/165 [01:00<12:05,  4.74s/it]  8%|▊         | 13/165 [01:05<11:58,  4.72s/it]  8%|▊         | 14/165 [01:09<11:41,  4.65s/it]  9%|▉         | 15/165 [01:14<11:39,  4.66s/it] 10%|▉         | 16/165 [01:19<11:43,  4.72s/it] 10%|█         | 17/165 [01:23<11:31,  4.67s/it] 11%|█         | 18/165 [01:28<11:27,  4.68s/it] 12%|█▏        | 19/165 [01:33<11:21,  4.67s/it] 12%|█▏        | 20/165 [01:37<11:12,  4.64s/it] 13%|█▎        | 21/165 [01:42<11:29,  4.79s/it] 13%|█▎        | 22/165 [01:47<11:15,  4.73s/it] 14%|█▍        | 23/165 [01:52<11:13,  4.74s/it] 15%|█▍        | 24/165 [01:57<11:15,  4.79s/it] 15%|█▌        | 25/165 [02:01<11:10,  4.79s/it] 16%|█▌        | 26/165 [02:06<11:09,  4.81s/it] 16%|█▋        | 27/165 [02:11<11:07,  4.84s/it] 17%|█▋        | 28/165 [02:16<10:57,  4.80s/it] 18%|█▊        | 29/165 [02:21<10:49,  4.78s/it] 18%|█▊        | 30/165 [02:25<10:45,  4.78s/it] 19%|█▉        | 31/165 [02:30<10:50,  4.85s/it] 19%|█▉        | 32/165 [02:35<10:39,  4.81s/it] 20%|██        | 33/165 [02:40<10:40,  4.85s/it] 21%|██        | 34/165 [02:45<10:47,  4.94s/it] 21%|██        | 35/165 [02:50<10:33,  4.87s/it] 22%|██▏       | 36/165 [02:55<10:22,  4.83s/it] 22%|██▏       | 37/165 [03:00<10:23,  4.87s/it] 23%|██▎       | 38/165 [03:05<10:26,  4.93s/it] 24%|██▎       | 39/165 [03:10<10:31,  5.01s/it] 24%|██▍       | 40/165 [03:14<10:06,  4.85s/it] 25%|██▍       | 41/165 [03:19<10:06,  4.89s/it] 25%|██▌       | 42/165 [03:25<10:15,  5.00s/it] 26%|██▌       | 43/165 [03:29<10:01,  4.93s/it] 27%|██▋       | 44/165 [03:34<09:56,  4.93s/it] 27%|██▋       | 45/165 [03:39<09:57,  4.98s/it] 28%|██▊       | 46/165 [03:44<09:46,  4.93s/it] 28%|██▊       | 47/165 [03:49<09:34,  4.87s/it] 29%|██▉       | 48/165 [03:54<09:29,  4.87s/it] 30%|██▉       | 49/165 [03:59<09:19,  4.82s/it] 30%|███       | 50/165 [04:04<09:20,  4.88s/it] 31%|███       | 51/165 [04:09<09:32,  5.02s/it] 32%|███▏      | 52/165 [04:14<09:25,  5.00s/it] 32%|███▏      | 53/165 [04:19<09:22,  5.02s/it] 33%|███▎      | 54/165 [04:24<09:26,  5.10s/it] 33%|███▎      | 55/165 [04:25<07:08,  3.90s/it]                                                 33%|███▎      | 55/165 [04:25<07:08,  3.90s/it][DEBUG] step=0 lm_loss=4.7197 smooth_loss=2.4403 total=7.1600
+[DEBUG] step=0 lm_loss=4.3291 smooth_loss=1.5681 total=5.8972
+[DEBUG] step=0 lm_loss=4.0121 smooth_loss=1.4781 total=5.4901
+[DEBUG] step=0 lm_loss=3.6249 smooth_loss=2.1534 total=5.7784
+[DEBUG] step=0 lm_loss=4.8227 smooth_loss=2.1305 total=6.9532
+[DEBUG] step=0 lm_loss=3.8449 smooth_loss=2.1582 total=6.0031
+[DEBUG] step=0 lm_loss=3.9538 smooth_loss=1.6384 total=5.5922
+[DEBUG] step=0 lm_loss=4.3229 smooth_loss=3.0562 total=7.3791
+[DEBUG] step=5 lm_loss=2.3639 smooth_loss=1.2232 total=3.5872
+[DEBUG] step=5 lm_loss=1.6109 smooth_loss=1.5969 total=3.2078
+[DEBUG] step=5 lm_loss=1.8631 smooth_loss=1.5509 total=3.4140
+[DEBUG] step=5 lm_loss=2.0174 smooth_loss=1.1680 total=3.1854
+[DEBUG] step=5 lm_loss=2.0803 smooth_loss=1.6904 total=3.7708
+[DEBUG] step=5 lm_loss=2.5640 smooth_loss=1.1824 total=3.7464
+[DEBUG] step=5 lm_loss=2.2305 smooth_loss=1.1971 total=3.4276
+[DEBUG] step=5 lm_loss=1.7386 smooth_loss=1.6205 total=3.3591
+[DEBUG] step=10 lm_loss=0.5317 smooth_loss=1.5742 total=2.1059
+[DEBUG] step=10 lm_loss=0.4815 smooth_loss=2.0879 total=2.5693
+[DEBUG] step=10 lm_loss=0.5701 smooth_loss=1.7490 total=2.3190
+[DEBUG] step=10 lm_loss=0.3547 smooth_loss=1.4304 total=1.7851
+[DEBUG] step=10 lm_loss=0.3679 smooth_loss=1.2276 total=1.5955
+[DEBUG] step=10 lm_loss=0.4341 smooth_loss=1.1438 total=1.5779
+[DEBUG] step=10 lm_loss=0.5434 smooth_loss=1.8177 total=2.3611
+[DEBUG] step=10 lm_loss=0.4669 smooth_loss=1.1663 total=1.6332
+[DEBUG] step=15 lm_loss=0.2555 smooth_loss=1.0569 total=1.3125
+[DEBUG] step=15 lm_loss=1.4087 smooth_loss=1.3078 total=2.7164
+[DEBUG] step=15 lm_loss=0.1088 smooth_loss=1.3381 total=1.4469
+[DEBUG] step=15 lm_loss=0.7202 smooth_loss=0.9518 total=1.6721
+[DEBUG] step=15 lm_loss=0.4669 smooth_loss=1.0231 total=1.4900
+[DEBUG] step=15 lm_loss=0.2031 smooth_loss=0.9736 total=1.1767
+[DEBUG] step=15 lm_loss=0.2018 smooth_loss=0.9683 total=1.1701
+[DEBUG] step=15 lm_loss=0.3819 smooth_loss=1.7183 total=2.1002
+[DEBUG] step=20 lm_loss=0.2293 smooth_loss=0.9440 total=1.1733
+[DEBUG] step=20 lm_loss=0.0844 smooth_loss=0.9725 total=1.0569
+[DEBUG] step=20 lm_loss=0.4332 smooth_loss=0.9459 total=1.3791
+[DEBUG] step=20 lm_loss=0.3168 smooth_loss=1.1719 total=1.4887
+[DEBUG] step=20 lm_loss=0.1038 smooth_loss=0.9466 total=1.0505
+[DEBUG] step=20 lm_loss=0.0267 smooth_loss=1.2539 total=1.2806
+[DEBUG] step=20 lm_loss=0.3811 smooth_loss=1.1784 total=1.5595
+[DEBUG] step=20 lm_loss=0.4411 smooth_loss=1.6107 total=2.0518
+[DEBUG] step=25 lm_loss=0.1707 smooth_loss=1.3669 total=1.5377
+[DEBUG] step=25 lm_loss=0.1386 smooth_loss=1.2123 total=1.3509
+[DEBUG] step=25 lm_loss=0.4220 smooth_loss=1.2326 total=1.6546
+[DEBUG] step=25 lm_loss=0.1094 smooth_loss=1.1375 total=1.2469
+[DEBUG] step=25 lm_loss=0.1743 smooth_loss=0.9400 total=1.1144
+[DEBUG] step=25 lm_loss=0.2080 smooth_loss=1.1889 total=1.3969
+[DEBUG] step=25 lm_loss=0.4275 smooth_loss=0.9254 total=1.3529
+[DEBUG] step=25 lm_loss=0.3612 smooth_loss=0.9297 total=1.2908
+[DEBUG] step=30 lm_loss=0.0164 smooth_loss=0.9275 total=0.9439
+[DEBUG] step=30 lm_loss=0.1556 smooth_loss=1.3894 total=1.5450
+[DEBUG] step=30 lm_loss=0.1184 smooth_loss=0.9354 total=1.0538
+[DEBUG] step=30 lm_loss=0.2030 smooth_loss=0.9375 total=1.1405
+[DEBUG] step=30 lm_loss=0.1607 smooth_loss=1.3718 total=1.5325
+[DEBUG] step=30 lm_loss=0.1414 smooth_loss=1.1962 total=1.3375
+[DEBUG] step=30 lm_loss=0.0614 smooth_loss=1.4423 total=1.5036
+[DEBUG] step=30 lm_loss=0.0898 smooth_loss=0.9308 total=1.0206
+[DEBUG] step=35 lm_loss=0.0402 smooth_loss=0.9238 total=0.9640
+[DEBUG] step=35 lm_loss=0.0320 smooth_loss=1.1838 total=1.2158
+[DEBUG] step=35 lm_loss=0.3079 smooth_loss=1.0969 total=1.4048
+[DEBUG] step=35 lm_loss=0.0056 smooth_loss=0.9238 total=0.9295
+[DEBUG] step=35 lm_loss=0.0603 smooth_loss=0.9208 total=0.9811
+[DEBUG] step=35 lm_loss=0.2817 smooth_loss=0.9204 total=1.2022
+[DEBUG] step=35 lm_loss=0.0821 smooth_loss=0.9442 total=1.0263
+[DEBUG] step=35 lm_loss=0.0881 smooth_loss=0.9324 total=1.0204
+[DEBUG] step=40 lm_loss=0.1094 smooth_loss=0.9322 total=1.0416
+[DEBUG] step=40 lm_loss=0.6397 smooth_loss=0.9494 total=1.5891
+[DEBUG] step=40 lm_loss=0.0790 smooth_loss=1.1816 total=1.2607
+[DEBUG] step=40 lm_loss=0.3801 smooth_loss=1.1606 total=1.5407
+[DEBUG] step=40 lm_loss=0.1576 smooth_loss=0.9227 total=1.0802
+[DEBUG] step=40 lm_loss=0.1465 smooth_loss=1.0893 total=1.2357
+[DEBUG] step=40 lm_loss=0.1432 smooth_loss=1.1645 total=1.3077
+[DEBUG] step=40 lm_loss=0.0722 smooth_loss=1.0955 total=1.1677
+[DEBUG] step=45 lm_loss=0.0445 smooth_loss=1.1938 total=1.2383
+[DEBUG] step=45 lm_loss=0.5734 smooth_loss=1.4326 total=2.0060
+[DEBUG] step=45 lm_loss=0.0903 smooth_loss=1.0971 total=1.1874
+[DEBUG] step=45 lm_loss=0.1288 smooth_loss=0.9254 total=1.0542
+[DEBUG] step=45 lm_loss=0.5177 smooth_loss=0.9255 total=1.4431
+[DEBUG] step=45 lm_loss=0.1830 smooth_loss=0.9296 total=1.1126
+[DEBUG] step=45 lm_loss=0.1670 smooth_loss=0.9258 total=1.0928
+[DEBUG] step=45 lm_loss=0.4418 smooth_loss=0.9324 total=1.3742
+[DEBUG] step=50 lm_loss=1.2868 smooth_loss=1.3500 total=2.6367
+[DEBUG] step=50 lm_loss=0.5351 smooth_loss=0.9497 total=1.4847
+[DEBUG] step=50 lm_loss=0.1287 smooth_loss=1.1969 total=1.3256
+[DEBUG] step=50 lm_loss=0.0993 smooth_loss=0.9394 total=1.0388
+[DEBUG] step=50 lm_loss=0.0826 smooth_loss=1.1612 total=1.2437
+[DEBUG] step=50 lm_loss=0.1488 smooth_loss=0.9339 total=1.0827
+[DEBUG] step=50 lm_loss=0.3389 smooth_loss=1.1811 total=1.5200
+[DEBUG] step=50 lm_loss=0.2348 smooth_loss=1.1739 total=1.4087
+{'loss': '14.51', 'grad_norm': '5.993', 'learning_rate': '0.0002018', 'epoch': '1'}
+[DEBUG] step=55 lm_loss=0.0480 smooth_loss=1.0420 total=1.0900
+
+  0%|          | 0/13 [00:00<?, ?it/s][A
+ 15%|█▌        | 2/13 [00:00<00:04,  2.59it/s][A
+ 23%|██▎       | 3/13 [00:01<00:04,  2.03it/s][A
+ 31%|███       | 4/13 [00:02<00:04,  1.82it/s][A
+ 38%|███▊      | 5/13 [00:02<00:04,  1.72it/s][A
+ 46%|████▌     | 6/13 [00:03<00:04,  1.62it/s][A
+ 54%|█████▍    | 7/13 [00:04<00:03,  1.50it/s][A
+ 62%|██████▏   | 8/13 [00:04<00:03,  1.49it/s][A
+ 69%|██████▉   | 9/13 [00:05<00:02,  1.51it/s][A
+ 77%|███████▋  | 10/13 [00:06<00:02,  1.49it/s][A
+ 85%|████████▍ | 11/13 [00:06<00:01,  1.55it/s][A
+ 92%|█████████▏| 12/13 [00:07<00:00,  1.55it/s][A
+100%|██████████| 13/13 [00:07<00:00,  2.02it/s][A                                                
+                                               [A 33%|███▎      | 55/165 [04:34<07:08,  3.90s/it]
+100%|██████████| 13/13 [00:07<00:00,  2.02it/s][A
+                                               [A 34%|███▍      | 56/165 [04:40<12:46,  7.04s/it] 35%|███▍      | 57/165 [04:45<11:31,  6.40s/it] 35%|███▌      | 58/165 [04:50<10:38,  5.97s/it] 36%|███▌      | 59/165 [04:55<10:09,  5.75s/it] 36%|███▋      | 60/165 [05:00<09:34,  5.47s/it] 37%|███▋      | 61/165 [05:05<09:09,  5.29s/it] 38%|███▊      | 62/165 [05:09<08:54,  5.19s/it] 38%|███▊      | 63/165 [05:15<08:49,  5.19s/it] 39%|███▉      | 64/165 [05:20<08:39,  5.15s/it] 39%|███▉      | 65/165 [05:25<08:27,  5.07s/it] 40%|████      | 66/165 [05:29<08:12,  4.97s/it] 41%|████      | 67/165 [05:34<08:06,  4.96s/it] 41%|████      | 68/165 [05:39<07:57,  4.93s/it] 42%|████▏     | 69/165 [05:44<07:44,  4.84s/it] 42%|████▏     | 70/165 [05:49<07:48,  4.94s/it] 43%|████▎     | 71/165 [05:54<07:45,  4.95s/it] 44%|████▎     | 72/165 [05:59<07:42,  4.98s/it] 44%|████▍     | 73/165 [06:04<07:35,  4.95s/it] 45%|████▍     | 74/165 [06:09<07:26,  4.90s/it] 45%|████▌     | 75/165 [06:14<07:23,  4.92s/it] 46%|████▌     | 76/165 [06:19<07:21,  4.96s/it] 47%|████▋     | 77/165 [06:24<07:24,  5.06s/it] 47%|████▋     | 78/165 [06:29<07:14,  4.99s/it] 48%|████▊     | 79/165 [06:34<07:05,  4.94s/it] 48%|████▊     | 80/165 [06:39<07:06,  5.02s/it] 49%|████▉     | 81/165 [06:44<06:59,  5.00s/it] 50%|████▉     | 82/165 [06:48<06:47,  4.91s/it] 50%|█████     | 83/165 [06:54<06:51,  5.02s/it] 51%|█████     | 84/165 [06:59<06:47,  5.03s/it] 52%|█████▏    | 85/165 [07:04<06:45,  5.06s/it] 52%|█████▏    | 86/165 [07:09<06:34,  4.99s/it] 53%|█████▎    | 87/165 [07:13<06:20,  4.87s/it] 53%|█████▎    | 88/165 [07:18<06:17,  4.90s/it] 54%|█████▍    | 89/165 [07:23<06:15,  4.94s/it] 55%|█████▍    | 90/165 [07:28<06:07,  4.89s/it] 55%|█████▌    | 91/165 [07:33<06:00,  4.87s/it] 56%|█████▌    | 92/165 [07:38<06:02,  4.97s/it] 56%|█████▋    | 93/165 [07:43<05:53,  4.91s/it] 57%|█████▋    | 94/165 [07:48<05:45,  4.87s/it] 58%|█████▊    | 95/165 [07:53<05:40,  4.86s/it] 58%|█████▊    | 96/165 [07:57<05:33,  4.83s/it] 59%|█████▉    | 97/165 [08:02<05:31,  4.87s/it] 59%|█████▉    | 98/165 [08:07<05:24,  4.85s/it] 60%|██████    | 99/165 [08:12<05:25,  4.93s/it] 61%|██████    | 100/165 [08:17<05:22,  4.96s/it] 61%|██████    | 101/165 [08:22<05:16,  4.94s/it] 62%|██████▏   | 102/165 [08:27<05:09,  4.92s/it] 62%|██████▏   | 103/165 [08:32<05:07,  4.96s/it] 63%|██████▎   | 104/165 [08:37<05:03,  4.98s/it] 64%|██████▎   | 105/165 [08:42<04:59,  4.99s/it] 64%|██████▍   | 106/165 [08:47<04:56,  5.03s/it] 65%|██████▍   | 107/165 [08:52<04:47,  4.96s/it] 65%|██████▌   | 108/165 [08:57<04:40,  4.92s/it] 66%|██████▌   | 109/165 [09:02<04:37,  4.95s/it] 67%|██████▋   | 110/165 [09:03<03:28,  3.79s/it]                                                  67%|██████▋   | 110/165 [09:03<03:28,  3.79s/it][DEBUG] step=55 lm_loss=0.1742 smooth_loss=1.1196 total=1.2938
+[DEBUG] step=55 lm_loss=0.1025 smooth_loss=1.2328 total=1.3353
+[DEBUG] step=55 lm_loss=0.1526 smooth_loss=1.1322 total=1.2847
+[DEBUG] step=55 lm_loss=0.1670 smooth_loss=1.0926 total=1.2596
+[DEBUG] step=55 lm_loss=0.2964 smooth_loss=0.9956 total=1.2920
+[DEBUG] step=55 lm_loss=0.2536 smooth_loss=1.0292 total=1.2828
+[DEBUG] step=55 lm_loss=0.0861 smooth_loss=1.1436 total=1.2296
+[DEBUG] step=55 lm_loss=0.1596 smooth_loss=1.0421 total=1.2018
+[DEBUG] step=55 lm_loss=0.2708 smooth_loss=1.0514 total=1.3223
+[DEBUG] step=55 lm_loss=0.0789 smooth_loss=1.0437 total=1.1226
+[DEBUG] step=55 lm_loss=0.1825 smooth_loss=1.0614 total=1.2438
+[DEBUG] step=55 lm_loss=0.1372 smooth_loss=1.4779 total=1.6151
+{'eval_loss': '1.25', 'eval_runtime': '8.206', 'eval_samples_per_second': '11.82', 'eval_steps_per_second': '1.584', 'epoch': '1'}
+[DEBUG] step=55 lm_loss=0.1852 smooth_loss=1.4254 total=1.6106
+[DEBUG] step=55 lm_loss=0.0013 smooth_loss=0.9251 total=0.9265
+[DEBUG] step=55 lm_loss=0.0734 smooth_loss=1.1755 total=1.2488
+[DEBUG] step=55 lm_loss=0.0169 smooth_loss=1.1645 total=1.1814
+[DEBUG] step=55 lm_loss=0.0626 smooth_loss=1.1908 total=1.2534
+[DEBUG] step=55 lm_loss=0.0634 smooth_loss=0.9229 total=0.9863
+[DEBUG] step=55 lm_loss=0.1519 smooth_loss=0.9286 total=1.0805
+[DEBUG] step=55 lm_loss=0.0363 smooth_loss=1.4256 total=1.4618
+[DEBUG] step=60 lm_loss=0.0909 smooth_loss=1.1679 total=1.2588
+[DEBUG] step=60 lm_loss=0.0151 smooth_loss=1.1712 total=1.1863
+[DEBUG] step=60 lm_loss=0.0216 smooth_loss=0.9225 total=0.9441
+[DEBUG] step=60 lm_loss=0.0046 smooth_loss=1.1812 total=1.1859
+[DEBUG] step=60 lm_loss=0.1201 smooth_loss=1.0988 total=1.2189
+[DEBUG] step=60 lm_loss=0.0371 smooth_loss=1.1820 total=1.2191
+[DEBUG] step=60 lm_loss=0.0858 smooth_loss=0.9209 total=1.0066
+[DEBUG] step=60 lm_loss=0.0085 smooth_loss=1.2705 total=1.2790
+[DEBUG] step=65 lm_loss=0.0151 smooth_loss=1.1929 total=1.2081
+[DEBUG] step=65 lm_loss=0.0032 smooth_loss=0.9305 total=0.9337
+[DEBUG] step=65 lm_loss=0.2364 smooth_loss=0.9223 total=1.1586
+[DEBUG] step=65 lm_loss=0.1871 smooth_loss=1.4014 total=1.5885
+[DEBUG] step=65 lm_loss=0.6378 smooth_loss=1.4005 total=2.0383
+[DEBUG] step=65 lm_loss=0.3698 smooth_loss=0.9286 total=1.2984
+[DEBUG] step=65 lm_loss=0.1646 smooth_loss=1.4209 total=1.5856
+[DEBUG] step=65 lm_loss=0.0056 smooth_loss=0.9280 total=0.9336
+[DEBUG] step=70 lm_loss=0.3476 smooth_loss=1.4152 total=1.7628
+[DEBUG] step=70 lm_loss=0.0647 smooth_loss=1.1589 total=1.2236
+[DEBUG] step=70 lm_loss=0.0574 smooth_loss=0.9195 total=0.9769
+[DEBUG] step=70 lm_loss=0.1890 smooth_loss=1.4124 total=1.6014
+[DEBUG] step=70 lm_loss=0.4551 smooth_loss=0.9214 total=1.3765
+[DEBUG] step=70 lm_loss=0.1159 smooth_loss=0.9204 total=1.0362
+[DEBUG] step=70 lm_loss=0.1257 smooth_loss=0.9197 total=1.0453
+[DEBUG] step=70 lm_loss=0.0047 smooth_loss=1.1767 total=1.1814
+[DEBUG] step=75 lm_loss=0.2480 smooth_loss=0.9251 total=1.1731
+[DEBUG] step=75 lm_loss=0.0741 smooth_loss=1.0952 total=1.1694
+[DEBUG] step=75 lm_loss=0.2384 smooth_loss=1.1727 total=1.4111
+[DEBUG] step=75 lm_loss=0.0657 smooth_loss=1.3444 total=1.4101
+[DEBUG] step=75 lm_loss=0.0579 smooth_loss=1.1613 total=1.2192
+[DEBUG] step=75 lm_loss=1.5864 smooth_loss=0.9250 total=2.5114
+[DEBUG] step=75 lm_loss=0.1129 smooth_loss=0.9208 total=1.0336
+[DEBUG] step=75 lm_loss=0.0042 smooth_loss=1.1653 total=1.1695
+[DEBUG] step=80 lm_loss=0.2293 smooth_loss=1.1828 total=1.4120
+[DEBUG] step=80 lm_loss=0.1642 smooth_loss=0.9222 total=1.0865
+[DEBUG] step=80 lm_loss=0.0733 smooth_loss=1.1839 total=1.2572
+[DEBUG] step=80 lm_loss=0.0673 smooth_loss=1.1614 total=1.2287
+[DEBUG] step=80 lm_loss=0.0944 smooth_loss=1.0917 total=1.1861
+[DEBUG] step=80 lm_loss=0.0427 smooth_loss=1.1745 total=1.2172
+[DEBUG] step=80 lm_loss=0.0066 smooth_loss=1.0912 total=1.0978
+[DEBUG] step=80 lm_loss=0.1264 smooth_loss=1.4142 total=1.5407
+[DEBUG] step=85 lm_loss=0.0348 smooth_loss=1.0899 total=1.1247
+[DEBUG] step=85 lm_loss=0.0419 smooth_loss=1.1719 total=1.2138
+[DEBUG] step=85 lm_loss=0.0184 smooth_loss=0.9210 total=0.9394
+[DEBUG] step=85 lm_loss=0.0564 smooth_loss=0.9199 total=0.9763
+[DEBUG] step=85 lm_loss=0.0230 smooth_loss=0.9224 total=0.9454
+[DEBUG] step=85 lm_loss=0.1840 smooth_loss=1.1620 total=1.3460
+[DEBUG] step=85 lm_loss=0.0924 smooth_loss=1.1610 total=1.2534
+[DEBUG] step=85 lm_loss=0.0195 smooth_loss=0.9204 total=0.9399
+[DEBUG] step=90 lm_loss=0.0766 smooth_loss=1.1615 total=1.2381
+[DEBUG] step=90 lm_loss=0.0053 smooth_loss=0.9205 total=0.9258
+[DEBUG] step=90 lm_loss=0.3977 smooth_loss=0.9220 total=1.3198
+[DEBUG] step=90 lm_loss=0.3500 smooth_loss=0.9204 total=1.2704
+[DEBUG] step=90 lm_loss=0.0148 smooth_loss=1.1618 total=1.1766
+[DEBUG] step=90 lm_loss=0.0652 smooth_loss=1.1706 total=1.2358
+[DEBUG] step=90 lm_loss=0.0519 smooth_loss=0.9216 total=0.9735
+[DEBUG] step=90 lm_loss=0.0331 smooth_loss=1.1607 total=1.1938
+[DEBUG] step=95 lm_loss=0.1469 smooth_loss=0.9220 total=1.0689
+[DEBUG] step=95 lm_loss=0.1414 smooth_loss=1.3990 total=1.5404
+[DEBUG] step=95 lm_loss=0.0792 smooth_loss=0.9203 total=0.9995
+[DEBUG] step=95 lm_loss=0.1114 smooth_loss=0.9209 total=1.0323
+[DEBUG] step=95 lm_loss=0.1888 smooth_loss=1.1764 total=1.3652
+[DEBUG] step=95 lm_loss=0.1209 smooth_loss=1.0865 total=1.2074
+[DEBUG] step=95 lm_loss=0.0480 smooth_loss=1.1587 total=1.2067
+[DEBUG] step=95 lm_loss=0.0338 smooth_loss=0.9195 total=0.9533
+[DEBUG] step=100 lm_loss=0.0081 smooth_loss=1.1628 total=1.1709
+[DEBUG] step=100 lm_loss=0.1637 smooth_loss=1.0875 total=1.2513
+[DEBUG] step=100 lm_loss=0.1696 smooth_loss=1.1710 total=1.3406
+[DEBUG] step=100 lm_loss=0.0134 smooth_loss=1.1602 total=1.1736
+[DEBUG] step=100 lm_loss=0.0064 smooth_loss=0.9195 total=0.9259
+[DEBUG] step=100 lm_loss=0.0467 smooth_loss=1.1711 total=1.2178
+[DEBUG] step=100 lm_loss=0.0256 smooth_loss=1.1599 total=1.1855
+[DEBUG] step=100 lm_loss=0.2384 smooth_loss=0.9197 total=1.1581
+[DEBUG] step=105 lm_loss=0.1242 smooth_loss=1.1592 total=1.2834
+[DEBUG] step=105 lm_loss=0.1885 smooth_loss=0.9202 total=1.1087
+[DEBUG] step=105 lm_loss=0.1936 smooth_loss=0.9212 total=1.1149
+[DEBUG] step=105 lm_loss=0.0081 smooth_loss=1.3267 total=1.3349
+[DEBUG] step=105 lm_loss=0.1340 smooth_loss=0.9222 total=1.0562
+[DEBUG] step=105 lm_loss=0.1847 smooth_loss=1.1740 total=1.3588
+[DEBUG] step=105 lm_loss=0.0211 smooth_loss=0.9193 total=0.9404
+[DEBUG] step=105 lm_loss=0.2397 smooth_loss=0.9203 total=1.1600
+{'loss': '9.56', 'grad_norm': '4.726', 'learning_rate': '0.0001018', 'epoch': '2'}
+[DEBUG] step=110 lm_loss=0.0649 smooth_loss=1.0279 total=1.0928
+
+  0%|          | 0/13 [00:00<?, ?it/s][A
+ 15%|█▌        | 2/13 [00:00<00:03,  2.91it/s][A
+ 23%|██▎       | 3/13 [00:01<00:04,  2.14it/s][A
+ 31%|███       | 4/13 [00:01<00:04,  1.88it/s][A
+ 38%|███▊      | 5/13 [00:02<00:04,  1.75it/s][A
+ 46%|████▌     | 6/13 [00:03<00:04,  1.64it/s][A
+ 54%|█████▍    | 7/13 [00:04<00:03,  1.51it/s][A
+ 62%|██████▏   | 8/13 [00:04<00:03,  1.49it/s][A
+ 69%|██████▉   | 9/13 [00:05<00:02,  1.51it/s][A
+ 77%|███████▋  | 10/13 [00:06<00:02,  1.49it/s][A
+ 85%|████████▍ | 11/13 [00:06<00:01,  1.55it/s][A
+ 92%|█████████▏| 12/13 [00:07<00:00,  1.55it/s][A
+100%|██████████| 13/13 [00:07<00:00,  2.03it/s][A                                                 
+                                               [A 67%|██████▋   | 110/165 [09:11<03:28,  3.79s/it]
+100%|██████████| 13/13 [00:07<00:00,  2.03it/s][A
+                                               [A 67%|██████▋   | 111/165 [09:17<06:05,  6.77s/it] 68%|██████▊   | 112/165 [09:22<05:31,  6.26s/it] 68%|██████▊   | 113/165 [09:27<05:06,  5.89s/it] 69%|██████▉   | 114/165 [09:32<04:50,  5.69s/it] 70%|██████▉   | 115/165 [09:37<04:32,  5.45s/it] 70%|███████   | 116/165 [09:42<04:17,  5.26s/it] 71%|███████   | 117/165 [09:47<04:07,  5.16s/it] 72%|███████▏  | 118/165 [09:51<03:57,  5.06s/it] 72%|███████▏  | 119/165 [09:56<03:51,  5.04s/it] 73%|███████▎  | 120/165 [10:01<03:44,  4.99s/it] 73%|███████▎  | 121/165 [10:06<03:37,  4.94s/it] 74%|███████▍  | 122/165 [10:11<03:29,  4.88s/it] 75%|███████▍  | 123/165 [10:16<03:26,  4.92s/it] 75%|███████▌  | 124/165 [10:21<03:22,  4.93s/it] 76%|███████▌  | 125/165 [10:26<03:17,  4.94s/it] 76%|███████▋  | 126/165 [10:31<03:14,  4.98s/it] 77%|███████▋  | 127/165 [10:36<03:09,  4.99s/it] 78%|███████▊  | 128/165 [10:41<03:01,  4.90s/it] 78%|███████▊  | 129/165 [10:45<02:55,  4.89s/it] 79%|███████▉  | 130/165 [10:50<02:50,  4.86s/it] 79%|███████▉  | 131/165 [10:55<02:46,  4.90s/it] 80%|████████  | 132/165 [11:00<02:41,  4.89s/it] 81%|████████  | 133/165 [11:05<02:37,  4.92s/it] 81%|████████  | 134/165 [11:10<02:33,  4.95s/it] 82%|████████▏ | 135/165 [11:15<02:27,  4.93s/it] 82%|████████▏ | 136/165 [11:20<02:27,  5.08s/it] 83%|████████▎ | 137/165 [11:25<02:18,  4.96s/it] 84%|████████▎ | 138/165 [11:30<02:11,  4.86s/it] 84%|████████▍ | 139/165 [11:34<02:04,  4.79s/it] 85%|████████▍ | 140/165 [11:39<02:01,  4.86s/it] 85%|████████▌ | 141/165 [11:44<01:57,  4.91s/it] 86%|████████▌ | 142/165 [11:49<01:54,  4.98s/it] 87%|████████▋ | 143/165 [11:54<01:48,  4.92s/it] 87%|████████▋ | 144/165 [11:59<01:43,  4.91s/it] 88%|████████▊ | 145/165 [12:04<01:37,  4.86s/it] 88%|████████▊ | 146/165 [12:08<01:30,  4.76s/it] 89%|████████▉ | 147/165 [12:13<01:26,  4.79s/it] 90%|████████▉ | 148/165 [12:18<01:22,  4.83s/it] 90%|█████████ | 149/165 [12:23<01:16,  4.80s/it] 91%|█████████ | 150/165 [12:28<01:12,  4.83s/it] 92%|█████████▏| 151/165 [12:33<01:06,  4.78s/it] 92%|█████████▏| 152/165 [12:38<01:02,  4.85s/it] 93%|█████████▎| 153/165 [12:43<00:59,  4.96s/it] 93%|█████████▎| 154/165 [12:48<00:54,  4.93s/it] 94%|█████████▍| 155/165 [12:52<00:48,  4.88s/it] 95%|█████████▍| 156/165 [12:58<00:44,  4.99s/it] 95%|█████████▌| 157/165 [13:03<00:40,  5.07s/it] 96%|█████████▌| 158/165 [13:08<00:35,  5.05s/it] 96%|█████████▋| 159/165 [13:13<00:30,  5.12s/it] 97%|█████████▋| 160/165 [13:18<00:25,  5.06s/it] 98%|█████████▊| 161/165 [13:23<00:20,  5.06s/it] 98%|█████████▊| 162/165 [13:28<00:14,  4.97s/it] 99%|█████████▉| 163/165 [13:33<00:09,  4.94s/it] 99%|█████████▉| 164/165 [13:38<00:05,  5.06s/it]100%|██████████| 165/165 [13:39<00:00,  3.85s/it]                                                 100%|██████████| 165/165 [13:39<00:00,  3.85s/it][DEBUG] step=110 lm_loss=0.2015 smooth_loss=1.1076 total=1.3091
+[DEBUG] step=110 lm_loss=0.0766 smooth_loss=1.2266 total=1.3033
+[DEBUG] step=110 lm_loss=0.1209 smooth_loss=1.1270 total=1.2479
+[DEBUG] step=110 lm_loss=0.1890 smooth_loss=1.0847 total=1.2737
+[DEBUG] step=110 lm_loss=0.2478 smooth_loss=0.9852 total=1.2330
+[DEBUG] step=110 lm_loss=0.3121 smooth_loss=1.0258 total=1.3378
+[DEBUG] step=110 lm_loss=0.0587 smooth_loss=1.1278 total=1.1865
+[DEBUG] step=110 lm_loss=0.1541 smooth_loss=1.0267 total=1.1809
+[DEBUG] step=110 lm_loss=0.2587 smooth_loss=1.0460 total=1.3047
+[DEBUG] step=110 lm_loss=0.0812 smooth_loss=1.0251 total=1.1062
+[DEBUG] step=110 lm_loss=0.1742 smooth_loss=1.0479 total=1.2221
+[DEBUG] step=110 lm_loss=0.0988 smooth_loss=1.4346 total=1.5334
+{'eval_loss': '1.236', 'eval_runtime': '8.109', 'eval_samples_per_second': '11.96', 'eval_steps_per_second': '1.603', 'epoch': '2'}
+[DEBUG] step=110 lm_loss=0.1316 smooth_loss=0.9209 total=1.0525
+[DEBUG] step=110 lm_loss=0.2688 smooth_loss=0.9203 total=1.1891
+[DEBUG] step=110 lm_loss=0.1933 smooth_loss=1.1717 total=1.3649
+[DEBUG] step=110 lm_loss=0.0101 smooth_loss=1.1710 total=1.1812
+[DEBUG] step=110 lm_loss=0.0194 smooth_loss=1.1718 total=1.1912
+[DEBUG] step=110 lm_loss=0.0050 smooth_loss=0.9214 total=0.9264
+[DEBUG] step=110 lm_loss=0.1913 smooth_loss=1.1608 total=1.3521
+[DEBUG] step=110 lm_loss=0.0033 smooth_loss=0.9192 total=0.9225
+[DEBUG] step=115 lm_loss=0.1905 smooth_loss=0.9198 total=1.1103
+[DEBUG] step=115 lm_loss=0.0355 smooth_loss=0.9200 total=0.9555
+[DEBUG] step=115 lm_loss=0.0094 smooth_loss=1.4113 total=1.4207
+[DEBUG] step=115 lm_loss=0.0820 smooth_loss=1.3394 total=1.4213
+[DEBUG] step=115 lm_loss=0.1691 smooth_loss=1.1726 total=1.3417
+[DEBUG] step=115 lm_loss=0.1870 smooth_loss=0.9205 total=1.1075
+[DEBUG] step=115 lm_loss=0.0617 smooth_loss=1.3425 total=1.4043
+[DEBUG] step=115 lm_loss=0.0538 smooth_loss=1.4110 total=1.4648
+[DEBUG] step=120 lm_loss=0.0538 smooth_loss=0.9197 total=0.9734
+[DEBUG] step=120 lm_loss=0.0066 smooth_loss=0.9230 total=0.9296
+[DEBUG] step=120 lm_loss=0.0283 smooth_loss=0.9195 total=0.9478
+[DEBUG] step=120 lm_loss=0.0570 smooth_loss=1.1604 total=1.2173
+[DEBUG] step=120 lm_loss=0.0852 smooth_loss=1.3969 total=1.4822
+[DEBUG] step=120 lm_loss=0.0497 smooth_loss=0.9242 total=0.9740
+[DEBUG] step=120 lm_loss=0.0041 smooth_loss=0.9235 total=0.9276
+[DEBUG] step=120 lm_loss=0.0166 smooth_loss=0.9229 total=0.9396
+[DEBUG] step=125 lm_loss=0.1391 smooth_loss=1.3441 total=1.4832
+[DEBUG] step=125 lm_loss=0.1276 smooth_loss=1.1724 total=1.2999
+[DEBUG] step=125 lm_loss=0.0595 smooth_loss=1.1741 total=1.2336
+[DEBUG] step=125 lm_loss=0.0043 smooth_loss=1.1701 total=1.1743
+[DEBUG] step=125 lm_loss=0.0664 smooth_loss=0.9198 total=0.9862
+[DEBUG] step=125 lm_loss=1.0481 smooth_loss=0.9253 total=1.9734
+[DEBUG] step=125 lm_loss=0.0072 smooth_loss=0.9203 total=0.9275
+[DEBUG] step=125 lm_loss=0.0516 smooth_loss=0.9195 total=0.9711
+[DEBUG] step=130 lm_loss=0.0103 smooth_loss=0.9215 total=0.9318
+[DEBUG] step=130 lm_loss=0.0773 smooth_loss=0.9202 total=0.9976
+[DEBUG] step=130 lm_loss=0.0747 smooth_loss=1.1714 total=1.2461
+[DEBUG] step=130 lm_loss=0.0075 smooth_loss=1.1593 total=1.1668
+[DEBUG] step=130 lm_loss=0.0058 smooth_loss=1.0869 total=1.0927
+[DEBUG] step=130 lm_loss=0.0498 smooth_loss=0.9204 total=0.9702
+[DEBUG] step=130 lm_loss=0.1494 smooth_loss=1.1585 total=1.3080
+[DEBUG] step=130 lm_loss=0.0294 smooth_loss=0.9216 total=0.9510
+[DEBUG] step=135 lm_loss=0.9949 smooth_loss=1.1738 total=2.1687
+[DEBUG] step=135 lm_loss=0.0946 smooth_loss=1.1750 total=1.2696
+[DEBUG] step=135 lm_loss=0.1227 smooth_loss=0.9209 total=1.0435
+[DEBUG] step=135 lm_loss=0.0498 smooth_loss=1.1589 total=1.2087
+[DEBUG] step=135 lm_loss=0.0042 smooth_loss=1.0867 total=1.0909
+[DEBUG] step=135 lm_loss=0.0085 smooth_loss=0.9229 total=0.9314
+[DEBUG] step=135 lm_loss=0.0206 smooth_loss=1.1804 total=1.2010
+[DEBUG] step=135 lm_loss=0.0950 smooth_loss=1.1740 total=1.2691
+[DEBUG] step=140 lm_loss=0.0916 smooth_loss=0.9193 total=1.0109
+[DEBUG] step=140 lm_loss=0.0020 smooth_loss=0.9201 total=0.9221
+[DEBUG] step=140 lm_loss=0.0126 smooth_loss=1.3274 total=1.3400
+[DEBUG] step=140 lm_loss=0.0515 smooth_loss=0.9203 total=0.9718
+[DEBUG] step=140 lm_loss=0.2223 smooth_loss=1.1726 total=1.3949
+[DEBUG] step=140 lm_loss=0.1563 smooth_loss=1.0873 total=1.2435
+[DEBUG] step=140 lm_loss=0.1617 smooth_loss=0.9213 total=1.0831
+[DEBUG] step=140 lm_loss=0.0077 smooth_loss=1.4105 total=1.4182
+[DEBUG] step=145 lm_loss=0.2399 smooth_loss=1.1732 total=1.4131
+[DEBUG] step=145 lm_loss=0.0206 smooth_loss=1.3425 total=1.3630
+[DEBUG] step=145 lm_loss=0.2469 smooth_loss=1.1708 total=1.4177
+[DEBUG] step=145 lm_loss=0.0150 smooth_loss=0.9197 total=0.9347
+[DEBUG] step=145 lm_loss=0.0934 smooth_loss=0.9194 total=1.0128
+[DEBUG] step=145 lm_loss=0.1064 smooth_loss=1.4114 total=1.5177
+[DEBUG] step=145 lm_loss=0.0014 smooth_loss=0.9195 total=0.9209
+[DEBUG] step=145 lm_loss=0.0512 smooth_loss=1.4123 total=1.4634
+[DEBUG] step=150 lm_loss=0.3295 smooth_loss=0.9200 total=1.2495
+[DEBUG] step=150 lm_loss=0.0250 smooth_loss=1.3970 total=1.4219
+[DEBUG] step=150 lm_loss=0.0189 smooth_loss=0.9200 total=0.9389
+[DEBUG] step=150 lm_loss=0.0106 smooth_loss=0.9202 total=0.9309
+[DEBUG] step=150 lm_loss=0.0117 smooth_loss=0.9193 total=0.9310
+[DEBUG] step=150 lm_loss=0.3299 smooth_loss=0.9198 total=1.2497
+[DEBUG] step=150 lm_loss=0.0235 smooth_loss=0.9190 total=0.9425
+[DEBUG] step=150 lm_loss=0.0189 smooth_loss=1.0870 total=1.1058
+[DEBUG] step=155 lm_loss=0.0382 smooth_loss=0.9194 total=0.9576
+[DEBUG] step=155 lm_loss=0.0411 smooth_loss=0.9199 total=0.9611
+[DEBUG] step=155 lm_loss=0.0568 smooth_loss=1.1578 total=1.2146
+[DEBUG] step=155 lm_loss=0.0160 smooth_loss=0.9193 total=0.9353
+[DEBUG] step=155 lm_loss=0.0277 smooth_loss=1.3284 total=1.3561
+[DEBUG] step=155 lm_loss=0.2188 smooth_loss=1.3277 total=1.5466
+[DEBUG] step=155 lm_loss=0.0035 smooth_loss=1.1587 total=1.1622
+[DEBUG] step=155 lm_loss=0.0058 smooth_loss=1.1588 total=1.1646
+[DEBUG] step=160 lm_loss=0.0972 smooth_loss=1.0867 total=1.1838
+[DEBUG] step=160 lm_loss=0.0105 smooth_loss=0.9191 total=0.9296
+[DEBUG] step=160 lm_loss=0.0092 smooth_loss=1.1581 total=1.1673
+[DEBUG] step=160 lm_loss=0.4328 smooth_loss=1.1586 total=1.5914
+[DEBUG] step=160 lm_loss=0.0184 smooth_loss=1.1581 total=1.1765
+[DEBUG] step=160 lm_loss=0.0183 smooth_loss=1.1592 total=1.1776
+[DEBUG] step=160 lm_loss=0.1191 smooth_loss=1.4140 total=1.5331
+[DEBUG] step=160 lm_loss=0.0279 smooth_loss=0.9229 total=0.9509
+{'loss': '9.11', 'grad_norm': '3.939', 'learning_rate': '1.818e-06', 'epoch': '3'}
+[DEBUG] step=165 lm_loss=0.0842 smooth_loss=1.0255 total=1.1098
+
+  0%|          | 0/13 [00:00<?, ?it/s][A
+ 15%|█▌        | 2/13 [00:00<00:03,  2.91it/s][A
+ 23%|██▎       | 3/13 [00:01<00:04,  2.14it/s][A
+ 31%|███       | 4/13 [00:01<00:04,  1.88it/s][A
+ 38%|███▊      | 5/13 [00:02<00:04,  1.76it/s][A
+ 46%|████▌     | 6/13 [00:03<00:04,  1.64it/s][A
+ 54%|█████▍    | 7/13 [00:04<00:03,  1.52it/s][A
+ 62%|██████▏   | 8/13 [00:04<00:03,  1.49it/s][A
+ 69%|██████▉   | 9/13 [00:05<00:02,  1.51it/s][A
+ 77%|███████▋  | 10/13 [00:06<00:02,  1.50it/s][A
+ 85%|████████▍ | 11/13 [00:06<00:01,  1.55it/s][A
+ 92%|█████████▏| 12/13 [00:07<00:00,  1.55it/s][A
+100%|██████████| 13/13 [00:07<00:00,  2.03it/s][A                                                 
+                                               [A100%|██████████| 165/165 [13:47<00:00,  3.85s/it]
+100%|██████████| 13/13 [00:07<00:00,  2.03it/s][A
+                                               [A                                                 100%|██████████| 165/165 [13:48<00:00,  3.85s/it]100%|██████████| 165/165 [13:48<00:00,  5.02s/it]
+[DEBUG] step=165 lm_loss=0.2255 smooth_loss=1.1064 total=1.3319
+[DEBUG] step=165 lm_loss=0.0794 smooth_loss=1.2242 total=1.3037
+[DEBUG] step=165 lm_loss=0.1117 smooth_loss=1.1249 total=1.2366
+[DEBUG] step=165 lm_loss=0.2057 smooth_loss=1.0836 total=1.2893
+[DEBUG] step=165 lm_loss=0.2509 smooth_loss=0.9832 total=1.2340
+[DEBUG] step=165 lm_loss=0.3357 smooth_loss=1.0245 total=1.3602
+[DEBUG] step=165 lm_loss=0.0583 smooth_loss=1.1233 total=1.1816
+[DEBUG] step=165 lm_loss=0.1742 smooth_loss=1.0249 total=1.1991
+[DEBUG] step=165 lm_loss=0.3405 smooth_loss=1.0452 total=1.3856
+[DEBUG] step=165 lm_loss=0.0780 smooth_loss=1.0250 total=1.1030
+[DEBUG] step=165 lm_loss=0.2152 smooth_loss=1.0458 total=1.2610
+[DEBUG] step=165 lm_loss=0.0621 smooth_loss=1.4273 total=1.4894
+{'eval_loss': '1.252', 'eval_runtime': '8.101', 'eval_samples_per_second': '11.97', 'eval_steps_per_second': '1.605', 'epoch': '3'}
+{'train_runtime': '828.8', 'train_samples_per_second': '3.138', 'train_steps_per_second': '0.199', 'train_loss': '11.06', 'epoch': '3'}
+Model saved to outputs/checkpoints/run_full
+Fine-tuning phase completed.

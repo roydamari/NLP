@@ -1,0 +1,16 @@
+{
+    "baseline": {
+        "ece": 0.3921529175050303,
+        "mse": 0.3906438631790745,
+        "n": 497,
+        "malformed_count": 3,
+        "fallback_count": 51
+    },
+    "finetuned": {
+        "ece": 0.39938016528925613,
+        "mse": 0.39878099173553727,
+        "n": 484,
+        "malformed_count": 16,
+        "fallback_count": 5
+    }
+}
