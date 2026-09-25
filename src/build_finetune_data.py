@@ -50,7 +50,7 @@ def main():
                     continue
 
                 chosen_answer = item["generations"][chosen_idx]
-                k = round(item["k"] * 10 / n_samples)
+                k = int(item["k"] * 10 / n_samples + 0.5)
 
                 clean_ans, _ = extract_answer(chosen_answer, target_format="baseline")
                 messages = [
