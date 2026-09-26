@@ -1,6 +1,6 @@
-# Run 1 (pre-registered). Table 1, Figure 1.
+# Run 3 (post-hoc) and its replicate (Sec. 4.2, 4.4, Table 3, Figure 2).
 model_name: "meta-llama/Llama-3.2-3B-Instruct"
-n_samples: 10
+n_samples: 20
 sampling_temperature: 1.0
 seed: 42
 train_subset_size: 1000

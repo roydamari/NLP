@@ -1,21 +1,10 @@
 #!/bin/bash
+# Full pipeline on a machine with a GPU. On the TAU Slurm cluster, use the scripts in scripts/ instead (see README).
 set -e
-
-echo "Running end-to-end LLM Calibration Pipeline..."
-
-# 1. Data Prep & Sampling
-python src/data_prep.py
-python src/sampling.py
-
-# 2. Scoring & Build Finetune Data
-python src/scoring.py
-python src/build_finetune_data.py
-
-# 3. Fine-tuning
-python src/train.py
-
-# 4. Evaluation
-python src/baseline_prompt.py
-python src/evaluate.py
-
-echo "Pipeline finished successfully!"
+python -u src/data_prep.py          # TriviaQA (ID) + WebQuestions (OOD), leakage check
+python -u src/sampling.py           # n_samples answers per training question
+python -u src/scoring.py            # k/n correct -> labels
+python -u src/build_finetune_data.py
+python -u src/train_plain.py        # LoRA SFT, keeps best validation checkpoint
+python -u src/evaluate_expected.py  # baseline + fine-tuned: greedy AND expected-value confidence
+python -u src/analyze_final.py      # accuracy, ECE, MSE, AUROC, bootstrap CIs, figures

@@ -17,5 +17,5 @@ export HF_HOME=/home/morg/NLP_2526b/$USER/.cache/huggingface
 echo "Starting fine-tuning phase..."
 python src/scoring.py
 python src/build_finetune_data.py
-python src/train.py
+python src/train_plain.py
 echo "Fine-tuning phase completed."

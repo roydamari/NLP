@@ -1,6 +1,6 @@
 """
 Plain supervised fine-tuning (no auxiliary losses) -- the configuration of Runs 1-3 in the paper.
-Hyperparameters are fixed here on purpose so configs/base.yaml does not need editing:
+Hyperparameters are read from configs/base.yaml (defaults below):
 LoRA r=16, alpha=32 (q_proj, v_proj), lr 3e-4, 3 epochs, effective batch 16.
 The checkpoint with the lowest validation loss is kept automatically.
 Output: outputs/checkpoints/run_plain
@@ -19,6 +19,11 @@ def main():
         sys.exit("ERROR: CUDA not available on this node. Cancel and resubmit with --exclude=<this node>.")
     with open("configs/base.yaml") as f:
         config = yaml.safe_load(f)
+    global LORA_R, LORA_ALPHA, LR, EPOCHS
+    LORA_R = int(config.get("lora_r", LORA_R))
+    LORA_ALPHA = int(config.get("lora_alpha", LORA_ALPHA))
+    LR = float(config.get("learning_rate", LR))
+    EPOCHS = int(config.get("num_epochs", EPOCHS))
     set_seed(config["seed"])
     model_id = config["model_name"]
     print(f"Model: {model_id} | LoRA r={LORA_R} alpha={LORA_ALPHA} lr={LR} epochs={EPOCHS}", flush=True)

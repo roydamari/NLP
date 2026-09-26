@@ -106,7 +106,7 @@ def process_results(raw_file, target_format="baseline"):
 def main():
     config = load_config()
     model_id = config["model_name"]
-    lora_path = "outputs/checkpoints/run_full"
+    lora_path = "outputs/checkpoints/run_plain"
     use_4bit = config.get("use_4bit", False)
 
     os.makedirs("outputs/eval_results", exist_ok=True)

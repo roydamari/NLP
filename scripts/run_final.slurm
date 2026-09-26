@@ -15,6 +15,7 @@ set -e
 cd "$SLURM_SUBMIT_DIR"
 
 echo "Node: $(hostname)"
+python -u src/scoring.py
 python -u src/build_finetune_data.py
 python -u src/train_plain.py
 python -u src/evaluate_expected.py
